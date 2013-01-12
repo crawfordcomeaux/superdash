@@ -208,6 +208,7 @@ if(config.facebook) {
   app.get('/auth/facebook/callback', routes.ui.auth.facebookCallback);
 }
 app.get('/auth/success', routes.ui.auth.success);
+app.get('/auth/finish', routes.ui.auth.finish);
 app.get('/auth/failure', routes.ui.auth.failure)
 app.get('/auth/logout', routes.ui.auth.logout);
 

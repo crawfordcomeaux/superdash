@@ -23,6 +23,30 @@ exports.registerEmail = function(req, res) {
   );
 };
 
+
+exports.twitter = passport.authenticate('twitter');
+exports.twitterCallback = passport.authenticate('twitter', {
+  successRedirect: '/auth/success',
+  failureRedirect: '/auth/fail',
+  failureFlash: true
+});
+
+exports.facebook = passport.authenticate('facebook', {
+  scope: ['email']
+});
+
+exports.facebookCallback = passport.authenticate('facebook', {
+  successRedirect: '/auth/success',
+  failureRedirect: '/auth/fail',
+  failureFlash: true
+});
+
+exports.finish = function(req, res) {
+  res.send('<script type="text/javascript">window.opener.App.signInComplete(); window.close();</script>')
+};
+
+
+
 exports.logout = function(req, res) {
   req.logout();
   res.send(200);
