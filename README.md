@@ -3,6 +3,20 @@ superdash
 
 Social Media Dashboard for Super Bowl Press Room
 
+# Feature Ideas 
+## MVP
+- Hide negative content
+- Heatmap of checkins
+- Heatmap of social media posts
+- Event schedule
+- Updates to schedule
+- Official NOLA feeds
+- Correspondence between NOLA and public
+- Word cloud of trending topics
+- Public Service Announcements
+
+
+
 # Overview
 Express3 app with mongoose, passport, mongo sessions, shared server/client jade templates, twitter bootstrap LESS, socket.io, and separate routes for UI and API functionality
 
