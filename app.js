@@ -196,6 +196,16 @@ app.all('/api/*', sendJson);
   };
 */
 
+
+app.get('/superdash/events', routes.api.superdash.events);
+app.get('/superdash/official', routes.api.superdash.official);
+app.get('/superdash/wordcloud', routes.api.superdash.wordcloud);
+app.get('/superdash/heatmap', routes.api.superdash.heatmap);
+app.get('/superdash/psa', routes.api.superdash.psa);
+app.get('/superdash/changes', routes.api.superdash.changes);
+app.get('/superdash/accountfeed', routes.api.superdash.accountfeed);
+
+
 // home
 app.get('/', routes.ui.home);
 
