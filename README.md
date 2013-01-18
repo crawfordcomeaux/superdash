@@ -24,6 +24,8 @@ Express3 app with mongoose, passport, mongo sessions, shared server/client jade 
 # Setup
 Just clone the repo and run ```chmod +x setup.sh && ./setup.sh``` from your terminal.
 
+Afterward, install supervice: ```npm install supervisor -g``` ...may need to run that as sudo, depending on your setup.
+
 # Configuration
 ```config/index.js``` is designed to automatically require and export a configuration file that is named according to your ```NODE_ENV``` environment variable, e.g., ```config/development.js``` or ```config/production.js```.
 
