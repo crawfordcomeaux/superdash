@@ -1,6 +1,6 @@
 exports.loggerFormat = 'dev';
 exports.useErrorHandler = true;
-exports.mongodb = process.env.MONGODB || 'mongodb://localhost/superdash';
+exports.mongodb = process.env.MONGODB || 'mongodb://superdash:sup3rd@sh@ds047447.mongolab.com:47447/heroku_app11073055';
 exports.sessionSecret = process.env.SESSION_SECRET || 'i love making code really fast';
 
 //exports.enableGuestLogin = true;
