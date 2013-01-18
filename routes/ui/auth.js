@@ -1,5 +1,5 @@
 var passport = require('passport')
-  , User = require("../../models").User
+  , User = require('../../models/user')
 ;
 
 exports.guest = passport.authenticate('guest', {
