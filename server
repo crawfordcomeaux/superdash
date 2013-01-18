@@ -1,1 +1,1 @@
-supervisor -w ./ -e js,jade,less app.js
+supervisor -w ./ -e js,jade,less,css,styl app.js

@@ -1,0 +1,25 @@
+.container-fluid
+    .row-fluid
+        span.span6
+          .well.widget-container.psa-feed
+            .pull-right.widget-controls
+              i.icon.icon-external-link.maximize
+              i.icon.icon-remove.close
+            h2.heading.widget-title #PSAs
+            block psa-feed
+              .well.widget-content
+        span.span6
+          .well.widget-container.upcoming-events
+            .pull-right.widget-controls
+              i.icon.icon-external-link.maximize
+              i.icon.icon-remove.close
+            h2.heading.widget-title Upcoming Events
+            block upcoming-events
+              .well.widget-content
+          .well.widget-container.schedule-changes
+            .pull-right.widget-controls
+              i.icon.icon-external-link.maximize
+              i.icon.icon-remove.close
+            h2.heading.widget-title Recent Schedule Changes
+            block schedule-changes
+              .well.widget-content

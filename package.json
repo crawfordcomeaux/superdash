@@ -28,7 +28,9 @@
     "connect-mongo": "*",
     "connect-redis": "*",
     "twitter-bootstrap": "*",
-    "async": "*"
+    "async": "*",
+    "ntwitter": "*",
+    "stylus":"*"
   },
   "devDependencies": {
     "supervisor": "*"

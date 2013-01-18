@@ -1,0 +1,32 @@
+.container-fluid
+    .row-fluid
+        span.span6
+          .well.widget-container.heatmap
+            .pull-right.widget-controls
+              i.icon-chevron-up
+              i.icon-remove
+            h2.heading.widget-title Heatmap
+            block heatmap
+              .well.widget-content
+          .well.widget-container.wordcloud
+            .pull-right.widget-controls
+              i.icon.icon-external-link.maximize
+              i.icon.icon-remove.close
+            h2.heading.widget-title Locally Trending
+            block wordcloud
+              .well.widget-content
+        span.span6
+          .well.widget-container.nola-correspondence
+            .pull-right.widget-controls
+              i.icon.icon-external-link.maximize
+              i.icon.icon-remove.close
+            h2.heading.widget-title NOLA Cares
+            block correspondence
+              .well.widget-content
+          .well.widget-container.official-nola-tweets
+            .pull-right.widget-controls
+              i.icon.icon-external-link.maximize
+              i.icon.icon-remove.close
+            h2.heading.widget-title NOLA Tweets
+            block official-nola-tweets
+              .well.widget-content

@@ -21,6 +21,8 @@ var config = require('./config')
   , TwitterStrategy = require('passport-twitter').Strategy
   , FacebookStrategy = require('passport-facebook').Strategy
   , MongoStore = require('connect-mongo')(express)
+  , twitter = require('ntwitter')
+  , stylus = require('stylus')
   , sessionStore = new MongoStore({ url: config.mongodb })
 ;
 
@@ -88,6 +90,7 @@ var app = express()
   , io = socketIo.listen(server)
 ;
 
+
 // Make socket.io a little quieter
 io.set('log level', 1);
 // Give socket.io access to the passport user from Express
@@ -104,6 +107,19 @@ io.set('authorization', passportSocketIo.authorize({
   }
 }));
 
+io.sockets.on('connection', function(socket) {
+
+  var twit = new twitter({
+    consumer_key: config.twitter.consumerKey,
+    consumer_secret: config.twitter.consumerSecret
+  });
+
+  twit.stream('statuses/filter', 	{'follow':'crawfordcomeaux,nolaready,visitneworleans,neworleans,gonola504'}, function(stream) {
+    stream.on('data', function (data) {
+       
+    });
+  });
+});
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -183,6 +199,12 @@ app.all('/api/*', sendJson);
 
 // home
 app.get('/', routes.ui.home);
+
+// left-hand dashboard
+app.get('/left', routes.ui.left);
+
+// right-hand dashboard
+app.get('/right', routes.ui.right);
 
 // currently logged-in user
 app.get('/me', routes.ui.me.show);
