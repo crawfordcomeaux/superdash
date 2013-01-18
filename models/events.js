@@ -27,5 +27,5 @@ var eventsSchema = new Schema({
 }, { collection: 'events' });
 
 
-module.exports = mongoose.model('Events', eventsSchema, 'Events');
+module.exports = mongoose.model('events', eventsSchema, 'events');
 
