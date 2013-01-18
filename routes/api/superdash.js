@@ -25,18 +25,22 @@ exports.events = function(req, res) {
 
 
 
-exports.official = function(req, res) {
+exports.wordcloud = function(req, res) {
+	twat.get('trends/place', { id: 2458833 }, function (err, data) {
+		console.log(data)
+
+	});
 
 };
 
 
 
-exports.wordcloud = function(req, res) {
+exports.official = function(req, res) {
 	
-	twat.get('followers/ids', { screen_name: 'tolga_tezel' },  function (err, reply) {
-		console.log(reply)	 
+	twat.get('lists/statuses', { list_id: '83856674', include_rts: false },  function (err, data) {
+		console.log(data)	 
 		res.contentType('json');
-		res.send({ events: docs }); 
+		res.send({ object: data }); 
 	})
 
 
@@ -45,6 +49,15 @@ exports.wordcloud = function(req, res) {
 
 
 exports.heatmap = function(req, res) {
+	twat.get('search/tweets', { 
+								  geocode: '29.951462,-90.081053,2mi'
+								, result_type: 'recent'
+								, include_entities: false
+								}, function (err, data) {
+									console.log(data.length);
+									res.contentType('json');
+									res.send({ object: data }); 
+								});
 
 };
 
