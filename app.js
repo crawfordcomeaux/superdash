@@ -198,7 +198,7 @@ app.all('/api/*', sendJson);
 
 app.get('/superdash/events', routes.api.superdash.events);
 app.get('/superdash/official', routes.api.superdash.official);
-app.get('/superdash/wordcloud', routes.api.superdash.wordcloud);
+app.get('/superdash/instagram', routes.api.superdash.instagram);
 app.get('/superdash/heatmap', routes.api.superdash.heatmap);
 app.get('/superdash/psa', routes.api.superdash.psa);
 app.get('/superdash/changes', routes.api.superdash.changes);

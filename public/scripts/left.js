@@ -18,8 +18,7 @@ window.onload = function(){
 	var instagram =function() {
 		console.log('in instagram')
 	   $.get('/superdash/instagram', function (data) {
-	      console.log(status);
-	      console.log(data);
+	     //console.log(data);
 	    });
 
 	 setTimeout(instagram, 5000);

@@ -43,12 +43,14 @@ exports.events = function(req, res) {
 
 exports.instagram = function(req, res) {
 	console.log('in instagram')
-	Instagram.media.search({ lat: 29.951462, lng: -90.081053 }, function (err, data) {
-		console.log(data)
+	Instagram.media.search({ lat: 29.9509, lng: -90.0814 }, function (err, data) {
+		if(err){console.log(err)}
+		console.log(data.length)
 		
 	});
 
 };
+
 
 
 
