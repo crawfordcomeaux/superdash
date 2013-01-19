@@ -26,19 +26,9 @@ window.onload = function(){
 
 	}
 
-
-	var official =function() {
-		console.log('in official')
-	   $.get('/superdash/official', function (data) {
-	      console.log(status);
-	      console.log(data);
-	    });
-
-	 setTimeout(official, 5000);
-
+	var official = io.connect('http://localhost/official');
+	official.on('tweet', function(data) {
+	  var tweets = $('ul.official-tweets');
+          tweets.prepend('<li><img src="' + data.profile_image_url + '" />' + data.screen_name + '<p>' + data.text + '</p></li>'); 	
 	}
-
-
-	setTimeout(official, 5000);
-
 };
