@@ -3,6 +3,8 @@ html
   head
     title= title
     != css('client')
+    != js('client')
+    != js('socket.io')
     script(src='/scripts/left.js')
     script(src='http://maps.google.com/maps/api/js?sensor=false')
     //script(src='/scripts/heatmap.js')
@@ -37,15 +39,14 @@ html
                   i.icon.icon-remove.close
                 h2.heading.widget-title NOLA Cares
                   .well.widget-content
-              .well.widget-container.official-nola-tweets
+              .well.widget-container.official
                 .pull-right.widget-controls
                   i.icon.icon-chevron-up.maximize
                   i.icon.icon-remove.close
                 h2.heading.widget-title NOLA Tweets
                   .well.widget-content
+                    ul.original-tweets
     != jadeTemplates()
-    != js('client')
-
   script
     if(10 == 10) {
       console.log('working')

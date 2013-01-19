@@ -61,7 +61,13 @@ exports.instagram = function(req, res) {
 		console.log(images)
 		res.contentType('json');
 		res.send({ url: images });
-    	}		
+    	},
+    	error: function(errorMessage, errorObject, caller){
+     		if(errorMessage){console.log(errorMessage)}
+     		if(errorObject){console.log(errorObject)}
+     		if(caller){console.log(caller)}	
+
+         }		
 	})
 };
 

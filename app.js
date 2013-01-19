@@ -15,6 +15,7 @@ var config = require('./config')
   , connectAssets = require('connect-assets')
   , lessMiddleware = require('less-middleware')
   , User = require('./models/user')
+  , Tweet = require('./models/tweet')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
   , TwitterStrategy = require('passport-twitter').Strategy
@@ -106,19 +107,32 @@ io.set('authorization', passportSocketIo.authorize({
   }
 }));
 
-io.sockets.on('connection', function(socket) {
+var twit = new twitter({
+  consumer_key: config.twitter.consumerKey,
+  consumer_secret: config.twitter.consumerSecret
+});
+  
+var official = io.of('/official');
 
-  var twit = new twitter({
-    consumer_key: config.twitter.consumerKey,
-    consumer_secret: config.twitter.consumerSecret
-  });
-
-  twit.stream('statuses/filter', 	{'follow':'crawfordcomeaux,nolaready,visitneworleans,neworleans,gonola504'}, function(stream) {
-    stream.on('data', function (data) {
-       
+twit.stream('statuses/filter', 	{'follow':'csahlhoff,crawfordcomeaux,nolaready,visitneworleans,neworleans,gonola504'}, function(stream) {
+  stream.on('data', function (data) {
+    var tweet = new Tweet({ status_id: data.id,
+		  created_at: data.created_at,
+		  user_id: data.user.id,
+		  screen_name: data.user.screen_name,
+		  profile_image_url: data.user.profile_image_url,
+		  text: data.text,
+		  in_reply_to_status_id: data.in_reply_to_status_id,
+		  in_reply_to_user_id: data.in_reply_to_user_id,
+		  in_reply_to_screen_name: data.in_reply_to_screen_name
     });
+    tweet.save(function(err) {
+      if(err) next(err);
+    });
+    official.emit('tweets',tweet);
   });
 });
+
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');

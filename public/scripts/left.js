@@ -36,6 +36,7 @@ window.onload = function(){
 
 	}
 
+<<<<<<< HEAD
 /*
 	var official =function() {
 		console.log('in official')
@@ -51,4 +52,11 @@ window.onload = function(){
 	setTimeout(instagram, 5000);
 	//setTimeout(official, 5000);
 
+=======
+	var official = io.connect('http://localhost/official');
+	official.on('tweet', function(data) {
+	  var tweets = $('ul.official-tweets');
+          tweets.prepend('<li><img src="' + data.profile_image_url + '" />' + data.screen_name + '<p>' + data.text + '</p></li>'); 	
+	}
+>>>>>>> a07ce57950165c01ca304fdc6a8126460e3fcf0d
 };
