@@ -89,10 +89,10 @@ var app = express()
   , server = http.createServer(app)
   , io = socketIo.listen(server)
 ;
-
+console.log(server);
 
 // Make socket.io a little quieter
-io.set('log level', 1);
+io.set('log level', 3);
 // Give socket.io access to the passport user from Express
 io.set('authorization', passportSocketIo.authorize({
   passport: passport,
@@ -106,16 +106,19 @@ io.set('authorization', passportSocketIo.authorize({
     accept(null, true);
   }
 }));
-
 var twit = new twitter({
   consumer_key: config.twitter.consumerKey,
   consumer_secret: config.twitter.consumerSecret
 });
-  
+console.log('got twitter');  
 var official = io.of('/official');
-
-twit.stream('statuses/filter', 	{'follow':'csahlhoff,crawfordcomeaux,nolaready,visitneworleans,neworleans,gonola504'}, function(stream) {
+console.log('got namespace');
+twit.stream('statuses/filter', 	{'follow':'csahlhoff,crawfordcomeaux,nolaready,visitneworleans,neworleans,gonola504'}, function(stream, err) {
+  stream.on('error', function (error) {
+    console.log(error);
+  });
   stream.on('data', function (data) {
+    console.log('streamin');
     var tweet = new Tweet({ status_id: data.id,
 		  created_at: data.created_at,
 		  user_id: data.user.id,
@@ -126,9 +129,13 @@ twit.stream('statuses/filter', 	{'follow':'csahlhoff,crawfordcomeaux,nolaready,v
 		  in_reply_to_user_id: data.in_reply_to_user_id,
 		  in_reply_to_screen_name: data.in_reply_to_screen_name
     });
+    console.log('gonna save');
     tweet.save(function(err) {
+      console.log('saving if no error');
       if(err) next(err);
+      console.log('guess no error');
     });
+    console.log('saved');
     official.emit('tweets',tweet);
   });
 });

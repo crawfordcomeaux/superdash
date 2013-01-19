@@ -12,7 +12,7 @@ window.onload = function(){
 
 	 //setTimeout(heatmap, 5000);
 
-	}
+	};
 
 
 	var wordcloud =function() {
@@ -24,11 +24,12 @@ window.onload = function(){
 
 	 //setTimeout(wordcloud, 5000);
 
-	}
+	};
 
-	var official = io.connect('http://localhost/official');
+	var official = io.connect('/official');
 	official.on('tweet', function(data) {
+	  console.log('got a tweet');
 	  var tweets = $('ul.official-tweets');
           tweets.prepend('<li><img src="' + data.profile_image_url + '" />' + data.screen_name + '<p>' + data.text + '</p></li>'); 	
-	}
+	});
 };
