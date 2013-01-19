@@ -25,7 +25,7 @@ window.onload = function(){
 
 	}
 
-
+/*
 	var official =function() {
 		console.log('in official')
 	   $.get('/superdash/official', function (data) {
@@ -36,7 +36,7 @@ window.onload = function(){
 	 //setTimeout(official, 5000);
 
 	}
-
+*/
 	setTimeout(instagram, 5000);
 	//setTimeout(official, 5000);
 
