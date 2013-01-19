@@ -15,9 +15,8 @@ var twit = new Twit({
 
 
 exports.events = function(req, res) {
-	var count = 10;
 	var venues = [];
-	var query = events.find({});
+	var query = events.find({}).limit(10);
 	query.exec(function(error, docs){
 		for(i=0; i<docs.length; i++){
 			var venue = docs[i]

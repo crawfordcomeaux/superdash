@@ -10,7 +10,7 @@ window.onload = function(){
 				for(i=0; i<events.length; i++){
 					var myevent = events[i]
 					console.log(myevent.venue)
-					output += '<li>' + myevent.venue + '</li>';
+					output += '<li>' + myevent.venue + '&nbsp;' + myevent.date + '&nbsp;' + myevent.title  + '&nbsp;' + myevent.start_time + '-' + myevent.end_time + '</li>';
 				}
 		    		output += '</ul>';
 
