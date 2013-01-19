@@ -3,11 +3,21 @@ html
   head
     title= title
     != css('client')
+<<<<<<< HEAD
     script(src='/scripts/left.js')
     script(src='http://maps.google.com/maps/api/js?sensor=false')
     script(src='/scripts/heatmap.js')
     script(src='/scripts/heatmap-gmaps.js')
   body
+=======
+    != js('https://maps.googleapis.com/maps/api/js?sensor=false&libraries=visualization')
+    != js('jquery')
+    != js('jquery.eventsource')
+    != js('heatmap')
+    != js('heatmap-gmaps')
+    != js('tweatmap')
+  body(onload='initialize()')
+>>>>>>> 83c7ad24ac1811bcca3c4a95d89030e7aa9b50eb
     #main.container-fluid
         .row-fluid
             span.span6
@@ -18,6 +28,12 @@ html
                 h2.heading.widget-title Heatmap
                 block heatmap
                   .well.widget-content
+                  #result
+                  #map_canvas(style='height: 600px; width: 800px;')
+                  button(onclick='toggleHeatmap()') Toggle Heatmap
+                  button(onclick='changeGradient()') Change gradient
+                  button(onclick='changeRadius()') Change radius
+                  button(onclick='changeOpacity()') Change opacity
               .well.widget-container.wordcloud
                 .pull-right.widget-controls
                   i.icon.icon-chevron-up.maximize
