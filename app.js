@@ -116,16 +116,16 @@ var official = io.of('/official');
 
 twit.stream('statuses/filter', 	{'follow':'csahlhoff,crawfordcomeaux,nolaready,visitneworleans,neworleans,gonola504'}, function(stream) {
   stream.on('data', function (data) {
-    var tweet = new Tweet({ status_id: data.id,
-		  created_at: data.created_at,
-		  user_id: data.user.id,
-		  screen_name: data.user.screen_name,
-		  profile_image_url: data.user.profile_image_url,
-		  text: data.text,
-		  in_reply_to_status_id: data.in_reply_to_status_id,
-		  in_reply_to_user_id: data.in_reply_to_user_id,
-		  in_reply_to_screen_name: data.in_reply_to_screen_name
-    });
+      var tweet = new Tweet({ status_id: data.id,
+  		  created_at: data.created_at,
+  		  user_id: data.user.id,
+  		  screen_name: data.user.screen_name,
+  		  profile_image_url: data.user.profile_image_url,
+  		  text: data.text,
+  		  in_reply_to_status_id: data.in_reply_to_status_id,
+  		  in_reply_to_user_id: data.in_reply_to_user_id,
+  		  in_reply_to_screen_name: data.in_reply_to_screen_name
+      });
     tweet.save(function(err) {
       if(err) next(err);
     });
