@@ -6,7 +6,6 @@ window.onload = function(){
 		console.log('in events')
 	   $.get('/superdash/events', function (data) {
 		
-		if (res != '') {
 		    var output = '<ul id="listname" data-inset=true>';
 		    $.each(res, function (i, Object) {
 		       output += '<li>' + Object.reg + '</li>';
