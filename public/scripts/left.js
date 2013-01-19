@@ -33,11 +33,11 @@ window.onload = function(){
 	      console.log(data);
 	    });
 
-	 setTimeout(official, 5000);
+	 //setTimeout(official, 5000);
 
 	}
 
 	setTimeout(instagram, 5000);
-	setTimeout(official, 5000);
+	//setTimeout(official, 5000);
 
 };

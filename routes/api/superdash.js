@@ -42,18 +42,28 @@ exports.events = function(req, res) {
 
 
 exports.instagram = function(req, res) {
+	var images = [];
 	console.log('in instagram')
-	Instagram.media.search({ lat: 29.9509, lng: -90.0814 }, function (err, data) {
-		if(err){console.log(err)}
-		console.log(data.length)
-		
-	});
-
+	Instagram.media.search({ 
+		lat: 29.9509, lng: -90.0814, 
+		complete: function(data){
+			for(i=0; i<3; i++){
+				var image = data[i]
+				console.log(image.images)
+				//console.log(image.images.standard_resolution.url)
+				var myimage = {
+					//image: image.standard_resolution.url
+				}
+				images.push(myimage)
+			}
+		console.log(images)
+    	}		
+	})
 };
 
 
 
-
+/*
 exports.official = function(req, res) {
 
 	twit.get('lists/statuses', { list_id: '83856674', include_rts: false },  function (err, data) {
@@ -75,7 +85,7 @@ exports.official = function(req, res) {
 
 
 };
-
+*/
 
 
 exports.heatmap = function(req, res) {
