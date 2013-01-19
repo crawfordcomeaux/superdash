@@ -18,7 +18,18 @@ window.onload = function(){
 	var instagram =function() {
 		console.log('in instagram')
 	   $.get('/superdash/instagram', function (data) {
-	     //console.log(data);
+	     	var images = data.url
+	     	var output = '<ol>';
+	     	for(i=0;i<images.length;i++){
+	     		var image = images[i];
+	     		console.log(image.image)
+	     		output += '<li><img src="' + image.image + '"></li>'
+	     	}
+
+	     	output += '</ol>'
+
+	     	$('#images').replaceWith(output)
+
 	    });
 
 	 setTimeout(instagram, 5000);

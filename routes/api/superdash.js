@@ -26,12 +26,16 @@ exports.events = function(req, res) {
 	query.exec(function(error, docs){
 		for(i=0; i<docs.length; i++){
 			var venue = docs[i]
-			console.log(venue.venue);
-			console.log(venue.date);
-			console.log(venue.title);
-			console.log(venue.start_time);
-			console.log(venue.end_time);
-			console.log('\n')
+
+			var myvenue = {
+				  venue: venue.venue
+				, date: venue.date
+				, title: venue.title
+				, start_time: venue.start_time
+				, end_time: venue.end_time
+			}
+
+			venues.push(myvenue)
 		}
 
 		res.contentType('json');
@@ -49,14 +53,14 @@ exports.instagram = function(req, res) {
 		complete: function(data){
 			for(i=0; i<3; i++){
 				var image = data[i]
-				console.log(image.images)
-				//console.log(image.images.standard_resolution.url)
 				var myimage = {
-					//image: image.standard_resolution.url
+					image: image.images.standard_resolution.url
 				}
 				images.push(myimage)
 			}
 		console.log(images)
+		res.contentType('json');
+		res.send({ url: images });
     	}		
 	})
 };
