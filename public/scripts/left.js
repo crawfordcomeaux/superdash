@@ -63,6 +63,6 @@ window.onload = function(){
 	}
 
 
-	setTimeout(events, 5000);
+	setTimeout(official, 5000);
 
 };
