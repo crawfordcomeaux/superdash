@@ -62,8 +62,8 @@ exports.instagram = function(req, res) {
 };
 
 
-
 /*
+
 exports.official = function(req, res) {
 
 	twit.get('lists/statuses', { list_id: '83856674', include_rts: false },  function (err, data) {
