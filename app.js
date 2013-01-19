@@ -145,6 +145,8 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
 
+  app.locals.pretty = true;
+
   // export jade templates to reuse on client side
   // This includes a kind of terrible cache-buster hack
   // It generates a new cache-busting query string for the script tag every time the server starts

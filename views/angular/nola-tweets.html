@@ -1,0 +1,22 @@
+<!-- this is a snippet of html intended for angular -->
+<div id="angular-nola-tweets">
+  <div class="tweet">
+    <img class="thumbnail" src="https://si0.twimg.com/profile_images/1201411575/pwa_normal.png" />
+    <span class="name">Capntastic</span>
+    <span class="handle">@Capntastic</span>
+    <span class="time">10h</span>
+    <p class="content">I used to have a real weird time wondering if sperm had any sort of consciousness, no matter how basic. 
+    </p>
+  </div>
+  <!--<div ng-controller="MyCtrl">
+    <span class="value">value = {{ value }}</span>
+  </div>-->
+</div>
+
+<script src="/scripts/angular/nola-tweets.js"></script>
+
+<script>
+  angular.element(document).ready(function() {
+  angular.bootstrap(document.getElementById("angular-nola-tweets"), ["nola-tweets"]);
+  });
+</script>

@@ -1,7 +1,4 @@
-
 window.onload = function(){    
-
-
 
 	var heatmap =function() {
 		console.log('in heatmap')
