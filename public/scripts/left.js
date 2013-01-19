@@ -15,14 +15,14 @@ window.onload = function(){
 	}
 
 
-	var wordcloud =function() {
-		console.log('in wordcloud')
-	   $.get('/superdash/wordcloud', function (data) {
+	var instagram =function() {
+		console.log('in instagram')
+	   $.get('/superdash/instagram', function (data) {
 	      console.log(status);
 	      console.log(data);
 	    });
 
-	 //setTimeout(wordcloud, 5000);
+	 setTimeout(instagram, 5000);
 
 	}
 
@@ -38,7 +38,7 @@ window.onload = function(){
 
 	}
 
-
+	setTimeout(instagram, 5000);
 	setTimeout(official, 5000);
 
 };

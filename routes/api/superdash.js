@@ -1,7 +1,8 @@
   var mongoose = require('mongoose')
     , events = require('../../models/events')
     , tweets = require('../../models/tweets')
-  	, Twit = require('twit')  
+  	, Twit = require('twit') 
+  	, Instagram = require('instagram-node-lib');
 
 
 var twit = new Twit({
@@ -10,6 +11,11 @@ var twit = new Twit({
   , access_token:         '16586793-rBtnLLXcQ8wt5gBjP99SFUrtKiSSRCg3uN3PdIpaR'
   , access_token_secret:  'iMMjANsVy9DvrB53dd5LQvH4nzU05X0djo5mmuUw'
 });
+
+
+
+Instagram.set('client_id', '4d589b22ba1c4d9f9932ab2bd70a45f0');
+Instagram.set('client_secret', '46b82af8d9f94ac59cf089ec37e746ad');
 
 
 
@@ -35,12 +41,11 @@ exports.events = function(req, res) {
 
 
 
-exports.wordcloud = function(req, res) {
-	twit.get('trends/place', { id: 2458833 }, function (err, data) {
-		var trends = data[0].trends;
-		for(i=0; i<trends.length; i++){
-			console.log(trends[i].name)
-		}
+exports.instagram = function(req, res) {
+	console.log('in instagram')
+	Instagram.media.search({ lat: 29.951462, lng: -90.081053 }, function (err, data) {
+		console.log(data)
+		
 	});
 
 };
