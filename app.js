@@ -147,8 +147,7 @@ app.configure(function(){
   app.use(passport.session());
   app.use(app.router);
   
-  app.use(lessMiddleware({ src: __dirname + '/public' }));
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(__dirname + '/public'));
 
   if(config.useErrorHandler) app.use(express.errorHandler());
 });
