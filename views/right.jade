@@ -2,20 +2,25 @@ doctype 5
 html
   head
     title= title
+    != css('client')
+    != css('twitter')
+    link(rel='stylesheet', href='/css/angular-ui.css')
+    != js('client')
+    != js('socket.io')
     script(src='/scripts/right.js')
+    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js")
+    script(src='/scripts/angular-ui.js')
     != css('client')
   body
     #main.container-fluid
       .row-fluid
           span.span6
-            .well.widget-container.psa-feed
+            .well.widget-container.psa-feed.tweet-container
               .pull-right.widget-controls
                 i.icon.icon-chevron-up.maximize
                 i.icon.icon-remove.close
               h2.heading.widget-title #PSAs
-                .well.widget-content
-                  ul
-                    li.tweet 
+              include angular/psa.html
           span.span6
             .well.widget-container.upcoming-events
               .pull-right.widget-controls

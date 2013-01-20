@@ -1,0 +1,21 @@
+<!-- this is a snippet of html intended for angular -->
+<div ng-controller="PsaCtrl" id="angular-psa">
+  <div ng-show="tweets.length == 0">
+    <center><img style="margin-top: 150px;" src="/img/ajax-loader.gif" /></center>
+  </div>
+  <div ui-animate ng-repeat="tweet in tweets" class="tweet">
+    <img class="thumbnail" ng-src="{{ tweet.thumbnail }}" />
+    <span class="name">{{ tweet.name }}</span>
+    <span class="handle">@{{ tweet.screen_name }}</span>
+    <span class="time">10h</span>
+    <p class="content">{{ tweet.text }}</p>
+  </div>
+</div>
+
+<script src="/scripts/angular/psa.js"></script>
+
+<script>
+  angular.element(document).ready(function() {
+  angular.bootstrap(document.getElementById("angular-psa"), ["psa"]);
+  });
+</script>

@@ -31,8 +31,7 @@ exports.listen = function(server) {
 	});
 
     var id = 0;
-    var log = [];
-    var nolatweets = io.of('/nolatweets');
+    /*var log = [];*/
     function stream() {
 	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
 	    stream.on('data', function(data) {
@@ -50,19 +49,16 @@ exports.listen = function(server) {
 			replying_to_screen_name: data.in_reply_to_screen_name
 		    };
 
-		    nolatweets.emit('nola-tweet', tweet);
-
-		    log.push(tweet);
-
-		    console.log(tweet);
-
-		    /*console.log(id + '. ' + data.user.name + ' - @' + data.user.screen_name);
-		     console.log('    ' + data.text + '\n');*/
+		    io.of('/nolatweets').emit('nola-tweet', tweet);
+		    
+		    if(tweet.text.toLowerCase().indexOf('#psa') != -1) {
+			io.of('/psa').emit('psa-tweet', tweet);
+		    }
 		}
 	    });
 
 	    stream.on('end', function() {
-		console.log('end');
+		console.log('Twitter stream closed');
 	    });
 
 	    stream.on('error', function(err, data) {
@@ -74,6 +70,18 @@ exports.listen = function(server) {
     io.sockets.on('connection', function (socket) {
 	console.log('connection');
     });
+
+    setInterval(function() {
+	console.log('emit');
+	io.of('/psa').emit('psa-tweet', {
+	    id: ++id,
+	    name: 'Test',
+	    screen_name: 'test1',
+	    text: 'this is a test tweet ' + id + ' #PSA',
+	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
+	    time: Date.now()
+	});
+    }, 5000);
 
     /*setInterval(function() {
 	io.sockets.emit('nola-tweet', 	{
