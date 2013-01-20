@@ -3,17 +3,26 @@
     border-radius: 4px;
     background: rgba(255,255,255,0.5);
     position: relative;
-    padding-left: 65px;
-    padding-top: 4px;
-    padding-right: 6px;
-    padding-bottom: 4px;
+    padding-left: 62px;
+    padding-top: 6px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    min-height: 50px;
+    margin-top: 6px;
+}
+
+.tweet:nth-child(1) {
+    margin-top: 0;
 }
 
 .tweet .thumbnail {
     position: absolute;
-    left: 4px;
-    top: 4px;
+    left: 8px;
+    top: 8px;
     border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
 }
 
 .tweet .name {

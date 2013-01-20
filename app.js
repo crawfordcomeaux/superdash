@@ -9,8 +9,6 @@ var config = require('./config')
   , http = require('http')
   , path = require('path')
   , jadeBrowser = require('jade-browser')
-  , socketIo = require('socket.io')
-  , passportSocketIo = require('passport.socketio')
   , mongoose = require('mongoose')
   , connectAssets = require('connect-assets')
   , lessMiddleware = require('less-middleware')
@@ -84,35 +82,21 @@ passport.deserializeUser(function(id, done) {
 // connect the database
 mongoose.connect(config.mongodb);
 
-// create app, server, and web sockets
+// create app, server, and socket.io
 var app = express()
   , server = http.createServer(app)
-  , io = socketIo.listen(server)
 ;
 console.log(server);
 
-// Make socket.io a little quieter
-io.set('log level', 3);
-// Give socket.io access to the passport user from Express
-io.set('authorization', passportSocketIo.authorize({
-  passport: passport,
-  sessionKey: 'connect.sid',
-  sessionStore: sessionStore,
-  sessionSecret: config.sessionSecret,
-  success: function(data, accept) {
-    accept(null, true);
-  },
-  fail: function(data, accept) { // keeps socket.io from bombing when user isn't logged in
-    accept(null, true);
-  }
-}));
+
 var twit = new twitter({
   consumer_key: config.twitter.consumerKey,
   consumer_secret: config.twitter.consumerSecret
 });
+
 console.log('got twitter');  
-var official = io.of('/official');
 console.log('got namespace');
+
 twit.stream('statuses/filter', 	{'follow':'csahlhoff,crawfordcomeaux,nolaready,visitneworleans,neworleans,gonola504'}, function(stream, err) {
   stream.on('error', function (error) {
     console.log(error);
