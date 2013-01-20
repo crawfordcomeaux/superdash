@@ -32,7 +32,8 @@
     "async": "*",
     "ntwitter": "*",
     "stylus": "*",
-    "twit": "1.0.x"
+    "twit": "1.0.x",
+    "instagram-node-lib": "0.1.x"
   },
   "devDependencies": {
     "supervisor": "*"

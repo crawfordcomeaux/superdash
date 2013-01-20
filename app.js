@@ -86,6 +86,7 @@ mongoose.connect(config.mongodb);
 var app = express(),
     server = http.createServer(app);
 
+
 twitterStream.listen(server);
 
 app.configure(function(){
@@ -168,8 +169,8 @@ app.all('/api/*', sendJson);
 
 
 app.get('/superdash/events', routes.api.superdash.events);
-app.get('/superdash/official', routes.api.superdash.official);
-app.get('/superdash/wordcloud', routes.api.superdash.wordcloud);
+//app.get('/superdash/official', routes.api.superdash.official);
+app.get('/superdash/instagram', routes.api.superdash.instagram);
 app.get('/superdash/heatmap', routes.api.superdash.heatmap);
 app.get('/superdash/psa', routes.api.superdash.psa);
 app.get('/superdash/changes', routes.api.superdash.changes);

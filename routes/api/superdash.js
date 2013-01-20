@@ -1,7 +1,8 @@
   var mongoose = require('mongoose')
     , events = require('../../models/events')
     , tweets = require('../../models/tweets')
-  	, Twit = require('twit')  
+  	, Twit = require('twit') 
+  	, Instagram = require('instagram-node-lib');
 
 
 var twit = new Twit({
@@ -13,20 +14,28 @@ var twit = new Twit({
 
 
 
+Instagram.set('client_id', '4d589b22ba1c4d9f9932ab2bd70a45f0');
+Instagram.set('client_secret', '46b82af8d9f94ac59cf089ec37e746ad');
+
+
+
 
 exports.events = function(req, res) {
-	var count = 10;
 	var venues = [];
-	var query = events.find({});
+	var query = events.find({}).limit(10);
 	query.exec(function(error, docs){
 		for(i=0; i<docs.length; i++){
 			var venue = docs[i]
-			console.log(venue.venue);
-			console.log(venue.date);
-			console.log(venue.title);
-			console.log(venue.start_time);
-			console.log(venue.end_time);
-			console.log('\n')
+
+			var myvenue = {
+				  venue: venue.venue
+				, date: venue.date
+				, title: venue.title
+				, start_time: venue.start_time
+				, end_time: venue.end_time
+			}
+
+			venues.push(myvenue)
 		}
 
 		res.contentType('json');
@@ -36,17 +45,34 @@ exports.events = function(req, res) {
 
 
 
-exports.wordcloud = function(req, res) {
-	twit.get('trends/place', { id: 2458833 }, function (err, data) {
-		var trends = data[0].trends;
-		for(i=0; i<trends.length; i++){
-			console.log(trends[i].name)
-		}
-	});
+exports.instagram = function(req, res) {
+	var images = [];
+	console.log('in instagram')
+	Instagram.media.search({ 
+		lat: 29.9509, lng: -90.0814, 
+		complete: function(data){
+			for(i=0; i<3; i++){
+				var image = data[i]
+				var myimage = {
+					image: image.images.standard_resolution.url
+				}
+				images.push(myimage)
+			}
+		console.log(images)
+		res.contentType('json');
+		res.send({ url: images });
+    	},
+    	error: function(errorMessage, errorObject, caller){
+     		if(errorMessage){console.log(errorMessage)}
+     		if(errorObject){console.log(errorObject)}
+     		if(caller){console.log(caller)}	
 
+         }		
+	})
 };
 
 
+/*
 
 exports.official = function(req, res) {
 
@@ -69,7 +95,7 @@ exports.official = function(req, res) {
 
 
 };
-
+*/
 
 
 exports.heatmap = function(req, res) {
