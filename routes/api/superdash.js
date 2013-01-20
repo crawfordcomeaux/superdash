@@ -100,18 +100,22 @@ exports.official = function(req, res) {
 
 exports.heatmap = function(req, res) {
 	twit.get('search/tweets', { 
-		  geocode: '29.951462,-90.081053,2mi'
+		  geocode: '29.951462,-90.081053,20mi'
 		, result_type: 'recent'
 		, include_entities: false
 		}, function (err, data) {
+		    if(err)
+			console.log(err);
+
+		    if(data) {
 			for(i=0; i<data.statuses.length; i++){
-				item = data.statuses[i];
-				console.log(item.text)
+			    item = data.statuses[i];
 			}
 
-				res.contentType('json');
-				res.send({ object: data }); 
-			});
+			res.contentType('json');
+			res.send({ object: data }); 
+		    }
+		});
 
 };
 

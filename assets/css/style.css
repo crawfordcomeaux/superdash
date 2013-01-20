@@ -1,0 +1,8 @@
+.heatmap {
+    height: 400px;
+    position: relative;
+}
+
+#heatmapArea {
+    height: 350px;
+}

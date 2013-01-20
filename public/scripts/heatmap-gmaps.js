@@ -21,7 +21,7 @@ function HeatmapOverlay(map, cfg){
 HeatmapOverlay.prototype = new google.maps.OverlayView();
 
 HeatmapOverlay.prototype.onAdd = function(){
-
+	
     var panes = this.getPanes(),
         w = this.getMap().getDiv().clientWidth,
         h = this.getMap().getDiv().clientHeight,	
@@ -40,7 +40,6 @@ HeatmapOverlay.prototype.onRemove = function(){
 }
 
 HeatmapOverlay.prototype.draw = function(){
-     
     var me = this,
         overlayProjection = me.getProjection(),
         currentBounds = me.map.getBounds();
@@ -76,7 +75,7 @@ HeatmapOverlay.prototype.draw = function(){
         while(len--){
             var latlng = this.latlngs[len].latlng;
 	    if(!currentBounds.contains(latlng)) { continue; }
-
+	    	
 	    // DivPixel is pixel in overlay pixel coordinates... we need
 	    // to transform to screen coordinates so it'll match the canvas
 	    // which is continually repositioned to follow the screen.
@@ -84,7 +83,7 @@ HeatmapOverlay.prototype.draw = function(){
 	        screenPixel = new google.maps.Point(divPixel.x - leftX, divPixel.y - topY);
 
 	    var roundedPoint = this.pixelTransform(screenPixel);
-
+		
              d.data.push({ 
 	        x: roundedPoint.x,
 	        y: roundedPoint.y,
@@ -102,11 +101,11 @@ HeatmapOverlay.prototype.pixelTransform = function(p){
     while(p.x < 0){
     	p.x+=w;
     }
-
+	
     while(p.x > w){
 	p.x-=w;
     }
-
+		
     while(p.y < 0){
 	p.y+=h;
     }
@@ -117,7 +116,7 @@ HeatmapOverlay.prototype.pixelTransform = function(p){
 
     p.x = (p.x >> 0);
     p.y = (p.y >> 0);
-
+	
     return p;
 }
 

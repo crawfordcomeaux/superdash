@@ -642,7 +642,7 @@
                         y = ev.offsetY;
                     }
                     if(typeof(x)=='undefined')
-                        return;
+                        return null;
 
                     return [x,y];
                 }
