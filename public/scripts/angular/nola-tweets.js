@@ -3,7 +3,7 @@ angular.module('nola-tweets', ['nola-tweets.filters', 'nola-tweets.services', 'n
 function NolaTweetsCtrl($scope) {
     $scope.tweets = [];
 
-    var socket = io.connect('/');
+    var socket = io.connect('/nolatweets');
     socket.on('nola-tweet', function (data) {
 	$scope.tweets.splice(0, 0, data);
 	if($scope.tweets.length > 6) {

@@ -29,7 +29,7 @@ window.onload = function(){
 
 	    });
 
-	 setTimeout(instagram, 5000);
+//	 setTimeout(instagram, 5000);
 
 	}
 
@@ -46,6 +46,6 @@ window.onload = function(){
 
 	}
 */
-	setTimeout(instagram, 5000);
+//	setTimeout(instagram, 5000);
 	//setTimeout(official, 5000);
 };

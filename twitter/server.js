@@ -32,21 +32,25 @@ exports.listen = function(server) {
 
     var id = 0;
     var log = [];
-
+    var nolatweets = io.of('/nolatweets');
     function stream() {
 	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
 	    stream.on('data', function(data) {
 		if(data.user) {
 		    var tweet = {
-			id: ++id,
+			status_id: data.id,
 			name: data.user.name,
+			user_id: data.user.id,
 			screen_name: data.user.screen_name,
 			text: data.text,
 			thumbnail: data.user.profile_image_url,
-			time: Date.now()
+			timestamp: data.created_at,
+			replying_to_status_id: data.in_reply_to_status_id,
+			replying_to_user_id: data.in_reply_to_user_id,
+			replying_to_screen_name: data.in_reply_to_screen_name
 		    };
 
-		    io.sockets.emit('nola-tweet', tweet);
+		    nolatweets.emit('nola-tweet', tweet);
 
 		    log.push(tweet);
 
