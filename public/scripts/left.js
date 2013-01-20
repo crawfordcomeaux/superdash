@@ -12,7 +12,7 @@ window.onload = function(){
 
 	 //setTimeout(heatmap, 5000);
 
-	}
+	};
 
 
 	var instagram =function() {
@@ -47,6 +47,7 @@ window.onload = function(){
 
 	 //setTimeout(official, 5000);
 
+<<<<<<< HEAD
 	}
 */
 	setTimeout(instagram, 5000);
@@ -54,9 +55,19 @@ window.onload = function(){
 
 =======
 	var official = io.connect('http://localhost/official');
+=======
+	};
+
+	var official = io.connect('/official');
+>>>>>>> 616155327b8199e8e9032bb722c8f0726ad8780b
 	official.on('tweet', function(data) {
+	  console.log('got a tweet');
 	  var tweets = $('ul.official-tweets');
           tweets.prepend('<li><img src="' + data.profile_image_url + '" />' + data.screen_name + '<p>' + data.text + '</p></li>'); 	
+<<<<<<< HEAD
 	}
 >>>>>>> a07ce57950165c01ca304fdc6a8126460e3fcf0d
+=======
+	});
+>>>>>>> 616155327b8199e8e9032bb722c8f0726ad8780b
 };
