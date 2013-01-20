@@ -19,9 +19,9 @@ var config = require('./config')
   , TwitterStrategy = require('passport-twitter').Strategy
   , FacebookStrategy = require('passport-facebook').Strategy
   , MongoStore = require('connect-mongo')(express)
-  , twitter = require('ntwitter')
   , stylus = require('stylus')
   , sessionStore = new MongoStore({ url: config.mongodb })
+  , twitterStream = require('./twitter/server')
 ;
 
 // set up passport authentication
@@ -83,46 +83,10 @@ passport.deserializeUser(function(id, done) {
 mongoose.connect(config.mongodb);
 
 // create app, server, and socket.io
-var app = express()
-  , server = http.createServer(app)
-;
-console.log(server);
+var app = express(),
+    server = http.createServer(app);
 
-
-var twit = new twitter({
-  consumer_key: config.twitter.consumerKey,
-  consumer_secret: config.twitter.consumerSecret
-});
-
-console.log('got twitter');  
-console.log('got namespace');
-
-twit.stream('statuses/filter', 	{'follow':'csahlhoff,crawfordcomeaux,nolaready,visitneworleans,neworleans,gonola504'}, function(stream, err) {
-  stream.on('error', function (error) {
-    console.log(error);
-  });
-  stream.on('data', function (data) {
-    console.log('streamin');
-    var tweet = new Tweet({ status_id: data.id,
-		  created_at: data.created_at,
-		  user_id: data.user.id,
-		  screen_name: data.user.screen_name,
-		  profile_image_url: data.user.profile_image_url,
-		  text: data.text,
-		  in_reply_to_status_id: data.in_reply_to_status_id,
-		  in_reply_to_user_id: data.in_reply_to_user_id,
-		  in_reply_to_screen_name: data.in_reply_to_screen_name
-    });
-    console.log('gonna save');
-    tweet.save(function(err) {
-      console.log('saving if no error');
-      if(err) next(err);
-      console.log('guess no error');
-    });
-    console.log('saved');
-    official.emit('tweets',tweet);
-  });
-});
+twitterStream.listen(server);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);

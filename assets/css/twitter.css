@@ -3,12 +3,22 @@
     border-radius: 4px;
     background: rgba(255,255,255,0.5);
     position: relative;
+
     padding-left: 62px;
     padding-top: 6px;
     padding-right: 8px;
     padding-bottom: 8px;
-    min-height: 50px;
     margin-top: 6px;
+    transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    min-height: 50px;
+    margin-bottom: 0;
+}
+
+.tweet.ui-animate {
+    opacity: 0;
+    margin-bottom: -50px;
 }
 
 .tweet:nth-child(1) {
@@ -19,10 +29,10 @@
     position: absolute;
     left: 8px;
     top: 8px;
+    padding: 0;
     border: 0;
     box-shadow: none;
     border-radius: 0;
-    padding: 0;
 }
 
 .tweet .name {
@@ -42,4 +52,9 @@
 .tweet .content {
     color: black;
     margin: 0; 
+}
+
+.tweet-container {
+    height: 400px;
+    overflow: hidden;
 }

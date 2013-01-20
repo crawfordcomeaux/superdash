@@ -4,10 +4,12 @@ html
     title= title
     != css('client')
     != css('twitter')
+    link(rel='stylesheet', href='/css/angular-ui.css')
     != js('client')
     != js('socket.io')
     script(src='/scripts/left.js')
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js")
+    script(src='/scripts/angular-ui.js')
   body
     #main.container-fluid
         .row-fluid
@@ -31,7 +33,7 @@ html
                   i.icon.icon-remove.close
                 h2.heading.widget-title NOLA Cares
                   .well.widget-content
-              .well.widget-container.official
+              .well.widget-container.official.tweet-container
                 .pull-right.widget-controls
                   i.icon.icon-chevron-up.maximize
                   i.icon.icon-remove.close
