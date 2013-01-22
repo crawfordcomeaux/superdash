@@ -1,4 +1,3 @@
-
 var mongoose = exports.mongoose = require('mongoose')
   , mongooseTypes = require('mongoose-types')
   , Schema = mongoose.Schema

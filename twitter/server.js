@@ -1,11 +1,12 @@
 var twitter = require('ntwitter');
+var events = require('../models/events')
 
 exports.listen = function(server) {
     var io = require('socket.io').listen(server);
 
-    var screenNames = [
-	'superdashtest3',
-	'superdashtest4'
+    var userIDs = [
+	'1104900210',
+	'1104932480'
     ];
 
     var twit = new twitter({
@@ -15,27 +16,14 @@ exports.listen = function(server) {
 	access_token_secret: '0e6I5gCIddg5I90dJwYVaYo9vnS1qV2UpQ0tWqTY'
     });
 
-    var userIDs = [];
-
-    twit
-	.verifyCredentials(function (err, data) {
-	    if(err)
-		console.log('Error: ' + err);
-	})
-	.showUser(screenNames.join(','), function(err, data) {
-	    for(var i in data) {
-		userIDs.push(data[i].id_str);
-	    }
-
-	    stream();
-	});
 
     var id = 0;
     /*var log = [];*/
     function stream() {
-	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
+	twit.stream('statuses/filter', {'follow': userIDs}, function(stream) {
 	    stream.on('data', function(data) {
 		if(data.user) {
+			console.log(data.text)
 		    var tweet = {
 			status_id: data.id,
 			name: data.user.name,
@@ -80,7 +68,15 @@ exports.listen = function(server) {
 	    text: 'this is a test tweet ' + id + ' #PSA',
 	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
 	    time: Date.now()
-	});
+	}),
+		io.of('/events').emit('events', {
+	    id: ++id,
+	    name: 'Test',
+	    screen_name: 'test1',
+	    text: 'this is a test tweet ' + id + ' #PSA',
+	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
+	    time: Date.now()
+	})
     }, 5000);
 
     /*setInterval(function() {
