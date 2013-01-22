@@ -22,7 +22,7 @@ Instagram.set('client_secret', '46b82af8d9f94ac59cf089ec37e746ad');
 
 exports.events = function(req, res) {
 	var venues = [];
-	var query = events.find({}).limit(10);
+	var query = events.find({});
 	query.exec(function(error, docs){
 		for(i=0; i<docs.length; i++){
 			var venue = docs[i]

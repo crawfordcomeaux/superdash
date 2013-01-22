@@ -1,0 +1,20 @@
+<!-- this is a snippet of html intended for angular -->
+<div ng-controller="EventsCtrl" id="angular-events">
+  <div ng-show="events.length == 0">
+    <center><img style="margin-top: 150px;" src="/img/ajax-loader.gif" /></center>
+  </div>
+  <div ui-animate ng-repeat="event in events" class="tweets">
+    <span class="name">{{ event.venue }}</span>
+    <span class="handle">{{ event.date }}</span>
+    <span class="time">{{event.start_time}}-{{event.end_time}}</span>
+    <p class="content">{{ event.title}}</p>
+  </div>
+</div>
+
+<script src="/scripts/angular/events.js"></script>
+
+<script>
+  angular.element(document).ready(function() {
+  angular.bootstrap(document.getElementById("angular-events"), ["events"]);
+  });
+</script>

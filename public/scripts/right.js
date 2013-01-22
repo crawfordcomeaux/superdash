@@ -1,7 +1,7 @@
 
 window.onload = function(){    
 
-
+/*
 	var events =function() {
 		console.log('in events')
 	   $.get('/superdash/events', function (data) {
@@ -24,6 +24,8 @@ window.onload = function(){
 	    }
 
 	    setTimeout(events, 5000);
+
+	 */   
 
 	}
 

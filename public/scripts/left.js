@@ -1,4 +1,6 @@
 window.onload = function(){    
+    
+
     var instagram = function() {
 	console.log('in instagram');
 	$.get('/superdash/instagram', function (data) {
