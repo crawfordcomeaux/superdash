@@ -5,7 +5,7 @@ exports.listen = function(server) {
     var io = require('socket.io').listen(server);
 
     var userIDs = [
-	'1104900210',
+	'1072729021',
 	'1104932480'
     ];
 
@@ -16,11 +16,14 @@ exports.listen = function(server) {
 	access_token_secret: '0e6I5gCIddg5I90dJwYVaYo9vnS1qV2UpQ0tWqTY'
     });
 
+	stream();
 
     var id = 0;
+    console.log(userIDs)
     /*var log = [];*/
     function stream() {
-	twit.stream('statuses/filter', {'follow': userIDs}, function(stream) {
+    	console.log(userIDs)
+	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
 	    stream.on('data', function(data) {
 		if(data.user) {
 			console.log(data.text)
@@ -68,25 +71,24 @@ exports.listen = function(server) {
 	    text: 'this is a test tweet ' + id + ' #PSA',
 	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
 	    time: Date.now()
-	}),
-		io.of('/events').emit('events', {
-	    id: ++id,
-	    name: 'Test',
-	    screen_name: 'test1',
-	    text: 'this is a test tweet ' + id + ' #PSA',
-	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
-	    time: Date.now()
 	})
     }, 5000);
 
-    /*setInterval(function() {
-	io.sockets.emit('nola-tweet', 	{
-	    id: ++id,
-	    name: 'Test',
-	    screen_name: 'test1',
-	    text: 'this is a test tweet ' + id,
-	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
-	    time: Date.now()
+
+	var query = events.find();
+		query.exec(function(error, doc){
+		console.log(doc.length)
+		for(i=0; i<doc.length; i++){
+			setInterval(function() {
+				console.log(doc[i])
+				io.of('/events').emit('events', doc[i])
+			}, 5000);
+		}
+	  // do something with the mongoose document
+	}).on('error', function (err) {
+	  // handle the error
+	}).on('close', function () {
+	  // the stream is closed
 	});
-    }, 5000);*/
-};
+
+}
