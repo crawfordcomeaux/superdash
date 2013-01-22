@@ -11,6 +11,32 @@ function NolaTweetsCtrl($scope) {
 	}
 	$scope.$apply();
     });
+
+    socket.on('nola-tweet-hide', function(id) {
+	for(var i in $scope.tweets) {
+	    var tweet = $scope.tweets[i];
+	    
+	    if(tweet.id == id) {
+		$scope.tweets.splice(i, 1);
+		$scope.$apply();
+		break;
+	    }
+	}
+    });
+
+    $scope.hideTweet = function(id) {
+	for(var i in $scope.tweets) {
+	    var tweet = $scope.tweets[i];
+	    
+	    if(tweet.id == id) {
+		$scope.tweets.splice(i, 1);
+		$scope.$apply();
+		break;
+	    }
+	}
+
+	socket.emit('nola-tweet-hide', id);
+    };
 }
 
 angular.module('nola-tweets.directives', []).

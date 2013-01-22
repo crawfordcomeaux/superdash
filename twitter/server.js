@@ -1,5 +1,5 @@
-var twitter = require('ntwitter');
-var events = require('../models/events')
+var twitter = require('ntwitter'),
+    events = require('../models/events');
 
 exports.listen = function(server) {
     var io = require('socket.io').listen(server);
@@ -16,18 +16,19 @@ exports.listen = function(server) {
 	access_token_secret: '0e6I5gCIddg5I90dJwYVaYo9vnS1qV2UpQ0tWqTY'
     });
 
-	stream();
+    stream();
 
     var id = 0;
-    console.log(userIDs)
+    console.log(userIDs);
+
     /*var log = [];*/
     function stream() {
-    	console.log(userIDs)
+    	console.log(userIDs);
 	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
 	    stream.on('data', function(data) {
 		if(data.user) {
-			console.log(data.text)
 		    var tweet = {
+			id: ++id,
 			status_id: data.id,
 			name: data.user.name,
 			user_id: data.user.id,
@@ -58,11 +59,17 @@ exports.listen = function(server) {
 	});
     }
 
+    io.of('/nolatweets').on('connection', function(socket) {
+	socket.on('nola-tweet-hide', function(id) {
+	    socket.broadcast.emit('nola-tweet-hide', id);
+	});
+    });
+
     io.sockets.on('connection', function (socket) {
 	console.log('connection');
     });
 
-    setInterval(function() {
+    /*setInterval(function() {
 	console.log('emit');
 	io.of('/psa').emit('psa-tweet', {
 	    id: ++id,
@@ -71,24 +78,38 @@ exports.listen = function(server) {
 	    text: 'this is a test tweet ' + id + ' #PSA',
 	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
 	    time: Date.now()
-	})
-    }, 5000);
-
-
-	var query = events.find();
-		query.exec(function(error, doc){
-		console.log(doc.length)
-		for(i=0; i<doc.length; i++){
-			setInterval(function() {
-				console.log(doc[i])
-				io.of('/events').emit('events', doc[i])
-			}, 5000);
-		}
-	  // do something with the mongoose document
-	}).on('error', function (err) {
-	  // handle the error
-	}).on('close', function () {
-	  // the stream is closed
 	});
+    }, 5000);*/
+
+    setInterval(function() {
+	var tweet = {
+	    id: ++id,
+	    name: 'Charlie Chaplin',
+	    user_id: '10001',
+	    screen_name: 'greatestleader',
+	    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
+	    timestamp: Date.now()
+	};
+
+	io.of('/nolatweets').emit('nola-tweet', tweet);
+    }, 10000);
+
+
+    var query = events.find();
+    query.exec(function(error, doc){
+	//console.log(doc.length);
+	for(i=0; i<doc.length; i++){
+	    setInterval(function() {
+		//console.log(doc[i]);
+		io.of('/events').emit('events', doc[i]);
+	    }, 5000);
+	}
+	// do something with the mongoose document
+    }).on('error', function (err) {
+	// handle the error
+    }).on('close', function () {
+	// the stream is closed
+    });
 
 }

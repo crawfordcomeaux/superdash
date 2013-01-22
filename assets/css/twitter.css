@@ -46,7 +46,9 @@
 
 .tweet .time {
     color: rgb(140,140,140);
-    float: right;
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
 }
 
 .tweet .content {
@@ -57,4 +59,16 @@
 .tweet-container {
     height: 400px;
     overflow: hidden;
+}
+
+.hide-button {
+    display: none;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+}
+
+.tweet:hover .hide-button {
+    display: block;
 }
