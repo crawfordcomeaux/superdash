@@ -41,10 +41,10 @@ exports.listen = function(server) {
 			replying_to_screen_name: data.in_reply_to_screen_name
 		    };
 
-		    io.of('/nolatweets').emit('nola-tweet', tweet);
+		    io.of('/nolatweets').emit('tweet', tweet);
 		    
 		    if(tweet.text.toLowerCase().indexOf('#psa') != -1) {
-			io.of('/psa').emit('psa-tweet', tweet);
+			io.of('/psa').emit('tweet', tweet);
 		    }
 		}
 	    });
@@ -60,8 +60,8 @@ exports.listen = function(server) {
     }
 
     io.of('/nolatweets').on('connection', function(socket) {
-	socket.on('nola-tweet-hide', function(id) {
-	    socket.broadcast.emit('nola-tweet-hide', id);
+	socket.on('tweet-hide', function(id) {
+	    socket.broadcast.emit('tweet-hide', id);
 	});
     });
 

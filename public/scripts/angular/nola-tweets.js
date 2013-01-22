@@ -4,7 +4,7 @@ function NolaTweetsCtrl($scope) {
     $scope.tweets = [];
 
     var socket = io.connect('/nolatweets');
-    socket.on('nola-tweet', function (data) {
+    socket.on('tweet', function (data) {
 	$scope.tweets.splice(0, 0, data);
 	if($scope.tweets.length > 6) {
 	    $scope.tweets.pop();
@@ -12,7 +12,7 @@ function NolaTweetsCtrl($scope) {
 	$scope.$apply();
     });
 
-    socket.on('nola-tweet-hide', function(id) {
+    socket.on('tweet-hide', function(id) {
 	for(var i in $scope.tweets) {
 	    var tweet = $scope.tweets[i];
 	    
@@ -35,7 +35,7 @@ function NolaTweetsCtrl($scope) {
 	    }
 	}
 
-	socket.emit('nola-tweet-hide', id);
+	socket.emit('tweet-hide', id);
     };
 }
 

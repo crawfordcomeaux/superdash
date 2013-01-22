@@ -3,7 +3,7 @@
   <div ng-show="events.length == 0">
     <center><img style="margin-top: 150px;" src="/img/ajax-loader.gif" /></center>
   </div>
-  <div ui-animate ng-repeat="event in events" class="tweets">
+  <div ui-animate ng-repeat="event in events" class="event">
     <span class="name">{{ event.venue }}</span>
     <span class="handle">{{ event.date }}</span>
     <span class="time">{{event.start_time}}-{{event.end_time}}</span>

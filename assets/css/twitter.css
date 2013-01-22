@@ -72,3 +72,15 @@
 .tweet:hover .hide-button {
     display: block;
 }
+
+.event {
+    border-top: 1px solid rgb(200,200,200);
+    color: rgb(80,80,80);
+    margin-left: -20px;    
+    margin-right: -20px;
+    padding: 12px;
+}
+
+.event p {
+    margin: 0;
+}

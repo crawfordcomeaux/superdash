@@ -4,7 +4,7 @@ function PsaCtrl($scope) {
     $scope.tweets = [];
 
     var socket = io.connect('/psa');
-    socket.on('psa-tweet', function (data) {
+    socket.on('tweet', function (data) {
 	$scope.tweets.splice(0, 0, data);
 	if($scope.tweets.length > 6) {
 	    $scope.tweets.pop();
