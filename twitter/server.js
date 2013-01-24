@@ -83,21 +83,10 @@ exports.listen = function(server) {
 	io.of('/nolatweets').emit('tweet', tweet);
     }, 10000);
 
-
-    var query = events.find();
-    query.exec(function(error, doc){
-	//console.log(doc.length);
-	for(i=0; i<doc.length; i++){
-	    setInterval(function() {
-		//console.log(doc[i]);
-		io.of('/events').emit('events', doc[i]);
-	    }, 5000);
-	}
-	// do something with the mongoose document
-    }).on('error', function (err) {
-	// handle the error
-    }).on('close', function () {
-	// the stream is closed
-    });
-
-}
+    setInterval(function() {
+	var query = events.find();
+	query.exec(function(error, docs){
+	    io.of('/events').emit('events', docs);
+	});
+    }, 5000);
+};
