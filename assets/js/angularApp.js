@@ -57,11 +57,10 @@ function EventsCtrl($scope, $http) {
 
     var socket = io.connect('/events');
     socket.on('events', function (data) {
-    	console.log('data = ' + data);
-	$scope.events.splice(0, 0, data);
+	$scope.events = data;/*.splice(0, 0, data);
 	if($scope.events.length > 6) {
 	    $scope.events.pop();
-	}
+	}*/
 	$scope.$apply();
     });
 }
