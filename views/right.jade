@@ -11,10 +11,8 @@ html
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js")
     != js('angular-ui')
     != css('client')
-    != js('psa')
-    != js('events')
-    != js('nola-tweets')
-  body
+    != js('angularApp')
+  body(ng-app)
     #main.container-fluid
       .row-fluid
           span.span6

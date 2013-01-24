@@ -1,5 +1,5 @@
 <!-- this is a snippet of html intended for angular -->
-<div ng-controller="NolaTweetsCtrl" id="angular-nola-tweets">
+<div ng-controller="NolaTweetsCtrl">
   <div ng-show="tweets.length == 0">
     <center><img style="margin-top: 150px;" src="/img/ajax-loader.gif" /></center>
   </div>
@@ -21,9 +21,3 @@
 
 
 -->
-
-<script>
-  angular.element(document).ready(function() {
-  angular.bootstrap(document.getElementById("angular-nola-tweets"), ["nola-tweets"]);
-  });
-</script>

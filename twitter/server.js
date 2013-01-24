@@ -69,30 +69,18 @@ exports.listen = function(server) {
 	console.log('connection');
     });
 
-    /*setInterval(function() {
-	console.log('emit');
-	io.of('/psa').emit('psa-tweet', {
-	    id: ++id,
-	    name: 'Test',
-	    screen_name: 'test1',
-	    text: 'this is a test tweet ' + id + ' #PSA',
-	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
-	    time: Date.now()
-	});
-    }, 5000);*/
-
     setInterval(function() {
 	var tweet = {
 	    id: ++id,
 	    name: 'Charlie Chaplin',
 	    user_id: '10001',
 	    screen_name: 'greatestleader',
-	    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ' + id,
 	    thumbnail: 'http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png',
 	    timestamp: Date.now()
 	};
 
-	io.of('/nolatweets').emit('nola-tweet', tweet);
+	io.of('/nolatweets').emit('tweet', tweet);
     }, 10000);
 
 
