@@ -8,7 +8,7 @@ window.onload = function(){
 	    var output = '<ol>';
 	    for(i=0;i<images.length;i++){
 	     	var image = images[i];
-	     	console.log(image.image);
+	     	//console.log(image.image);
 	     	output += '<li><img src="' + image.image + '"></li>';
 	    }
 

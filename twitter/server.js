@@ -19,11 +19,11 @@ exports.listen = function(server) {
     stream();
 
     var id = 0;
-    console.log(userIDs);
+//    console.log(userIDs);
 
     /*var log = [];*/
     function stream() {
-    	console.log(userIDs);
+//    	console.log(userIDs);
 	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
 	    stream.on('data', function(data) {
 		if(data.user) {
@@ -54,7 +54,7 @@ exports.listen = function(server) {
 	    });
 
 	    stream.on('error', function(err, data) {
-		console.log(err + ': ' + data);
+		console.log('Twitter stream error. '); // err + ': ' + data);
 	    });
 	});
     }
@@ -66,7 +66,7 @@ exports.listen = function(server) {
     });
 
     io.sockets.on('connection', function (socket) {
-	console.log('connection');
+//	console.log('connection');
     });
 
     setInterval(function() {
@@ -83,10 +83,17 @@ exports.listen = function(server) {
 	io.of('/nolatweets').emit('tweet', tweet);
     }, 10000);
 
+   io.of('/events').on('connection', function(socket) {
+		//TODO: call events.findAll() and emit	
+   });
+
+/*  Being replaced by one single blast
+
     setInterval(function() {
 	var query = events.find();
 	query.exec(function(error, docs){
 	    io.of('/events').emit('events', docs);
 	});
     }, 5000);
+*/
 };

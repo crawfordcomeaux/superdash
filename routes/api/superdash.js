@@ -24,7 +24,36 @@ Instagram.set('callback_url', config.baseURL + 'instagram/callback');
 
 
 exports.events = function(req, res) {
-	var venues = [];
+	var eventDocs = [];
+	var count = events.count({},function(){});
+	var stream = events.find().stream();
+	var nextEvent = "";
+	stream.on('data', function(doc) {
+		nextEvent = {
+                                  venue: doc.venue
+                                , date: doc.date
+                                , title: doc.title
+                                , start_time: doc.start_time
+                                , end_time: doc.end_time 
+		}
+		eventDocs.push(nextEvent);
+	});
+
+	stream.on('error', function (err) {
+		console.log("Event stream error: %s", err);
+	});
+	
+	stream.on('close', function () {
+		if (count != eventDocs.length) {
+			console.log("Warning: event collection count not equal to # of events returned.");
+			console.log("collection count: %d", count);
+			console.log("events returned: %d", eventDocs.length);
+		}
+		res.contentType('json');
+		res.send({'events': eventDocs});
+	});
+/*
+	console.log('Events in db: %d', count);
 	var query = events.find({});
 	query.exec(function(error, docs){
 		for(i=0; i<docs.length; i++){
@@ -42,8 +71,9 @@ exports.events = function(req, res) {
 		}
 
 		res.contentType('json');
-		res.send({ events: docs });
+		res.send({ 'events': docs });
 	});
+*/
 };
 
 

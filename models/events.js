@@ -23,9 +23,38 @@ var eventsSchema = new Schema({
 	ticket_info: String,
 	privacy: String,
 	expected_attendance: String,
-	description: String
+	description: String,
+	changed: Boolean
 }, { collection: 'events' });
 
+eventsSchema.methods.findAll = function(cb) {
+        var eventDocs = [];
+        var count = events.count({},function(){});
+        var stream = events.find().stream();
+        var nextEvent = "";
+        stream.on('data', function(doc) {
+                nextEvent = {
+                                  venue: doc.venue
+                                , date: doc.date
+                                , title: doc.title
+                                , start_time: doc.start_time
+                                , end_time: doc.end_time
+                }
+                eventDocs.push(nextEvent);
+        });
 
+        stream.on('error', function (err) {
+                console.log("Event stream error: %s", err);
+        });
+
+        stream.on('close', function () {
+                if (count != eventDocs.length) {
+                        console.log("Warning: event collection count not equal to # of events returned.");
+                        console.log("collection count: %d", count);
+                        console.log("events returned: %d", eventDocs.length);
+                }
+	return eventDocs;
+	});
+}
 module.exports = mongoose.model('events', eventsSchema, 'events');
 
