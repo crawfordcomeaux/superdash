@@ -4,13 +4,16 @@ html
     title= title
     != css('client')
     != css('twitter')
-    link(rel='stylesheet', href='/css/angular-ui.css')
+    != css('angular-ui.css')
     != js('client')
     != js('socket.io')
-    script(src='/scripts/right.js')
+    != js('right')
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js")
-    script(src='/scripts/angular-ui.js')
+    != js('angular-ui')
     != css('client')
+    != js('psa')
+    != js('events')
+    != js('nola-tweets')
   body
     #main.container-fluid
       .row-fluid
