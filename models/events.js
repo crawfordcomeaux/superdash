@@ -24,7 +24,7 @@ var eventsSchema = new Schema({
 	privacy: String,
 	expected_attendance: String,
 	description: String,
-	changed: Boolean
+	changed: {type: Boolean, default: false}
 }, { collection: 'events' });
 
 eventsSchema.methods.findAll = function(cb) {
