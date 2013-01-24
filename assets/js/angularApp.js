@@ -5,6 +5,7 @@ function NolaTweetsCtrl($scope) {
 
     var socket = io.connect('/nolatweets');
     socket.on('tweet', function (data) {
+	console.log(data);
 	$scope.tweets.splice(0, 0, data);
 	if($scope.tweets.length > 6) {
 	    $scope.tweets.pop();
@@ -49,6 +50,20 @@ function PsaCtrl($scope) {
 	    $scope.tweets.pop();
 	}
 	$scope.$apply();
+    });
+}
+
+function NolaCaresCtrl($scope) {
+    $scope.tweets = [];
+
+    var socket = io.connect('/nolacares');
+    socket.on('tweetpair', function (data) {
+	console.log(data); /*
+	$scope.tweets.splice(0, 0, data);
+	if($scope.tweets.length > 6) {
+	    $scope.tweets.pop();
+	}
+	$scope.$apply();*/
     });
 }
 

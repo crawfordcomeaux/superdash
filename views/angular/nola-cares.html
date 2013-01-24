@@ -1,0 +1,32 @@
+<!-- this is a snippet of html intended for angular -->
+<div ng-controller="NolaCaresCtrl">
+  <div ng-show="tweets.length == 0">
+    <center><img style="margin-top: 150px;" src="/img/ajax-loader.gif" /></center>
+  </div>
+  <div ui-animate ng-repeat="pair in pairs" class="tweet">
+    <div class="tweet">
+      <img class="thumbnail" ng-src="{{ pair[0].thumbnail }}" />
+      <span class="name">{{ pair[0].name }}</span>
+      <span class="handle">@{{ pair[0].screen_name }}</span>
+      <!--<span class="time">10h</span>-->
+      <p class="content">{{ pair[0].text }}</p>
+    </div>
+
+    <div class="tweet reply">
+      <img class="thumbnail" ng-src="{{ pair[1].thumbnail }}" />
+      <span class="name">{{ pair[1].name }}</span>
+      <span class="handle">@{{ pair[1].screen_name }}</span>
+      <!--<span class="time">10h</span>-->
+      <p class="content">{{ pair[1].text }}</p>
+    </div>
+  </div>
+</div>
+
+<!--
+
+       This is now included in parent template, right.jade
+
+<script src="/scripts/angular/nola-tweets.js"></script>
+
+
+-->

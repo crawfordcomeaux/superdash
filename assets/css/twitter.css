@@ -16,6 +16,10 @@
     margin-bottom: 0;
 }
 
+.reply {
+    margin-left: 15px;
+}
+
 .tweet.ui-animate {
     opacity: 0;
     margin-bottom: -50px;

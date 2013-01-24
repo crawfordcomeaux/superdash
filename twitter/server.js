@@ -19,21 +19,16 @@ exports.listen = function(server) {
 
 
     var id = 0;
-//    console.log(userIDs);
 
     /*var log = [];*/
    
-//    var events = MyEvent.findAll();
-    var tweet = new Tweet();
-    var patt = new RegExp("^@" + tweet.screen_name);
     var eventSocket = io.of('/events');
     stream();
     function stream() {
-//    	console.log(userIDs);
 	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
 	    stream.on('data', function(data) {
 		if(data.user) {
-		    tweet = {
+		    var tweet = {
 			status_id: data.id,
 			name: data.user.name,
 			user_id: data.user.id,
@@ -47,9 +42,8 @@ exports.listen = function(server) {
 			msgtype: 'general',
 			hidden: false
 		    };
+
 		    routeTweet(tweet);
-//		    io.of('/nolatweets').emit('tweet', tweet);
-		    
 		}
 	    });
 
@@ -64,30 +58,39 @@ exports.listen = function(server) {
     }
 
     function routeTweet(tweet) {
-	
-      if(tweet.text.toLowerCase().indexOf('#psa') != -1) {
-	io.of('/psa').emit('tweet', tweet);
-	tweet.msgtype = 'psa';
-	tweet.save();
-      } else if(userIDs.indexOf(tweet.user_id) !== -1) {  		// If followed account tweets 
-	  if(userIDs.indexOf(tweet.in_reply_to_user_id) === -1) { 	// To a non-followed account
-	     var orig = twit.getStatus(tweet.in_reply_to_status_id);
-	     if (patt.test(orig.data.text) == false) {			// And it's in response to a tweet
-		io.of('/nolacares').emit('tweetpair', {'original': orig, 'response' : tweet});		// that wasn't to the followed account
-	     }
-          }
-      } else if(userIDs.indexOf(tweet.user_id) === -1) {		// Reverse the logic from 
-         if(userIDs.indexOf(tweet.in_reply_to_user_id) !== -1) {	// above to find people responding
-	     var orig = twit.getStatus(tweet.in_reply_to_status_id);    // to NOLA
-	     if (patt.test(orig.data.text) == false) {
-		io.of('/nolacares').emit('tweetpair', {'original': orig, 'response' : tweet});		
-	     }
-         }
-      } else {
-	io.of('/nolatweets').emit('tweet', tweet);
-      }
-      
-      
+	var patt = new RegExp("^@" + tweet.screen_name);
+
+	console.log('routeTweet');
+	console.log(tweet.user_id);
+	console.log(userIDs);
+	if(tweet.text.toLowerCase().indexOf('#psa') != -1) {
+	    io.of('/psa').emit('tweet', tweet);
+	    tweet.msgtype = 'psa';
+	    tweet.save();
+	    console.log('psa');
+	} else if(userIDs.indexOf(tweet.user_id.toString()) != -1) {  		// If followed account tweets 
+	    console.log('followed');
+	    if(userIDs.indexOf(tweet.in_reply_to_user_id) == -1) { 	// To a non-followed account
+		var orig = twit.getStatus(tweet.in_reply_to_status_id);
+		console.log(orig);
+		if (patt.test(orig.data.text) == false) {			// And it's in response to a tweet
+		    io.of('/nolacares').emit('tweetpair', {'original': orig, 'response' : tweet});		// that wasn't to the followed account
+		    console.log('tweet pair');
+		} else {
+		    console.log('tweet');
+		    io.of('/nolatweets').emit('tweet', tweet);
+		}
+            }
+	} else {
+	    console.log('not followed');
+            if(userIDs.indexOf(tweet.in_reply_to_user_id) != -1) {	// above to find people responding
+		var orig = twit.getStatus(tweet.in_reply_to_status_id);    // to NOLA
+		if (patt.test(orig.data.text) == false) {
+		    io.of('/nolacares').emit('tweetpair', {'original': orig, 'response' : tweet});		
+		}
+            }
+	    console.log('tweet pair');
+	} 
     } 
    
     io.of('/nolatweets').on('connection', function(socket) {
@@ -121,13 +124,12 @@ exports.listen = function(server) {
 		//TODO: call events.findAll() and emit	
    });
 
-/*  Being replaced by one single blast
 
     setInterval(function() {
-	var query = events.find();
+	var query = MyEvent.find();
 	query.exec(function(error, docs){
 	    io.of('/events').emit('events', docs);
 	});
     }, 5000);
-*/
+
 };
