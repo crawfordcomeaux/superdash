@@ -10,8 +10,8 @@
   // override for current user
   App.Models.Me = App.Models.User.extend({
 
-    url: function() { return '/api/me' }
-    
+    url: function() { return '#'; }
+
   });
 
 })(window.App);

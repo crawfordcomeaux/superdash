@@ -9,6 +9,7 @@ var twitter = require('./lib/twitter');
 
 var app = express();
 app.locals.title = config.title;
+app.locals.pretty = true;
 
 app.use(express.bodyParser());
 app.use(express.errorHandler());
