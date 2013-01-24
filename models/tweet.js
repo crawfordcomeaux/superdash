@@ -12,7 +12,8 @@ var tweets = new Schema({
   user_id: { type: Number },
   screen_name: { type: String },
   in_reply_to_screen_name: { type: String },
-  text: { type: String }
+  text: { type: String },
+  hidden: {type : Boolean , default: false}
 }, {collection: 'tweets'});
 
 module.exports = mongoose.model('tweets', tweets, 'tweets');
