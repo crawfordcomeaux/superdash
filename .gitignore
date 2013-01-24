@@ -1,6 +1,6 @@
 .DS_Store
 */.DS_Store
 node_modules
-assets/css/bootstrap/
+public/css/bootstrap
 public/img/img
-assets/js/bootstrap/js
+public/js/bootstrap

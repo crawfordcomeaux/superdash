@@ -1,12 +1,11 @@
-<!-- this is a snippet of html intended for angular -->
 <div ng-controller="EventsCtrl" id="angular-events">
   <div ng-show="events.length == 0">
     <center><img style="margin-top: 150px;" src="/img/ajax-loader.gif" /></center>
   </div>
   <div ui-animate ng-repeat="event in events" class="event">
-    <span class="name"><b>{{ event.venue }}</b></span>
-    <span class="handle"><i>{{ event.date }}</i></span>
+    <span class="name"><b>{{event.venue}}</b></span>
+    <span class="handle"><i>{{event.date}}</i></span>
     <span style="float: right" class="time">{{event.start_time}}-{{event.end_time}}</span>
-    <p class="content">{{ event.title}}</p>
+    <p class="content">{{event.title}}</p>
   </div>
 </div>

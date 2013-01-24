@@ -1,9 +1,15 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 
+var tweets = new mongoose.Schema({
+  status_id: { type: Number },
+  in_reply_to_status_id: { type: Number },
+  in_reply_to_user_id: { type: Number },
+  created_at: { type: Date },
+  profile_image_url: { type: String },
+  user_id: { type: Number },
+  screen_name: { type: String },
+  in_reply_to_screen_name: { type: String },
+  text: { type: String }
+}, { collection: 'tweets' });
 
-var tweetsSchema = new Schema({ tweets: {} }, { collection: 'tweets' });
-
-
-module.exports = mongoose.model('tweets', tweetsSchema, 'tweets');
-
+module.exports = mongoose.model('tweets', tweets, 'tweets');
