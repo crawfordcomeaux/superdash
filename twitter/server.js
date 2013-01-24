@@ -1,5 +1,5 @@
 var twitter = require('ntwitter'),
-    MyEvent = require('../models/events'),
+    events = require('../models/events'),
     Tweet = require('../models/tweet');
 
 exports.listen = function(server) {
@@ -24,6 +24,7 @@ exports.listen = function(server) {
     /*var log = [];*/
    
     var eventSocket = io.of('/events');
+    var allEvents = events.findAll();
     stream();
     function stream() {
 	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
@@ -122,16 +123,16 @@ exports.listen = function(server) {
     }, 10000); */
 
    eventSocket.on('connection', function(socket) {
-//	eventSocket.emit('events',events);
+	eventSocket.emit('events',events);
 		//TODO: call events.findAll() and emit	
    });
 
-
+/*
     setInterval(function() {
 	var query = MyEvent.find();
 	query.exec(function(error, docs){
 	    io.of('/events').emit('events', docs);
 	});
     }, 5000);
-
+*/
 };

@@ -163,6 +163,8 @@ exports.official = function(req, res) {
 */
 
 
+
+
 exports.heatmap = function(req, res) {
 	twit.get('search/tweets', { 
 		  geocode: '29.951462,-90.081053,20mi'
@@ -183,8 +185,16 @@ exports.heatmap = function(req, res) {
 		});
 
 };
+/*
+exports.heatmap_streaming = function(req, res) {
+  twit.stream('statuses/filter', {'locations': '-90.111923,29.913182,-90.055618,29.985172'},
+    function(stream) {
+      stream.on('data', function(data) {
+		  
+ ){
 
-
+}}
+*/
 
 exports.psa = function(req, res) {
 

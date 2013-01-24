@@ -54,6 +54,9 @@ window.onload = function(){
     };
     
     // now we can set the data
+
+    // TODO - Give me sockets & stream to me
+
     google.maps.event.addListenerOnce(map, "idle", function(){
 	// this is important, because if you set the data set too early, the latlng/pixel projection doesn't work
 	//heatmap.setDataSet(testData);
