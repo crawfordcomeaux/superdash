@@ -1,7 +1,7 @@
 
 window.onload = function(){    
 
-
+/*
 	var events = io.connect('/events');
 	var eventlist = '';
         events.on('events', function(events) {
@@ -13,9 +13,9 @@ window.onload = function(){
 		
 	}
 
-/*
-	function() {
-		console.log('in events')
+*/
+	var events = function() {
+//		console.log('in events')
 	
 
 	   $.get('/superdash/events', function (data) {
@@ -32,12 +32,12 @@ window.onload = function(){
 
 		    $('#events').append(output);
 
-		    setTimeout(events, 5000);
+		    setTimeout(events, 30000);
 		  });
 	      
 	    }
 
-	    setTimeout(events, 5000);
+	    setTimeout(events, 30000);
 
 */	    
 
