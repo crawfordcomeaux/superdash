@@ -6,7 +6,7 @@ exports.listen = function(server) {
     var io = require('socket.io').listen(server);
     
     var userIDs = [
-	'1072729021',
+	'1072729021','1104640333',
 	'1104932480','1367531','14523894','16819278','17831966','15600217','16494601','14164855','17685196','16181186','10202','807095','8453452','171317482','26642006','14293310','14079425'
     ];
 
@@ -98,8 +98,8 @@ exports.listen = function(server) {
 
 
 
-/*    io.sockets.on('connection', function (socket) {
-//	console.log('connection');
+    io.sockets.on('connection', function (socket) {
+	console.log('connection');
     });
 
     setInterval(function() {
@@ -114,7 +114,7 @@ exports.listen = function(server) {
 	};
 
 	io.of('/nolatweets').emit('tweet', tweet);
-    }, 10000); */
+    }, 10000); 
 
    eventSocket.on('connection', function(socket) {
 //	eventSocket.emit('events',events);
