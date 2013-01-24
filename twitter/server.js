@@ -6,8 +6,9 @@ exports.listen = function(server) {
     var io = require('socket.io').listen(server);
     
     var userIDs = [
-	'1072729021','1104640333',
-	'1104932480','1367531','14523894','16819278','17831966','15600217','16494601','14164855','17685196','16181186','10202','807095','8453452','171317482','26642006','14293310','14079425'
+	'1072729021','1104640333', '774653509',
+	'1104900210', '16586793'
+	/*'1104932480','1367531','14523894','16819278','17831966','15600217','16494601','14164855','17685196','16181186','10202','807095','8453452','171317482','26642006','14293310','14079425'*/
     ];
 
     var twit = new twitter({
@@ -61,8 +62,6 @@ exports.listen = function(server) {
 	var patt = new RegExp("^@" + tweet.screen_name);
 
 	console.log('routeTweet');
-	console.log(tweet.user_id);
-	console.log(userIDs);
 	if(tweet.text.toLowerCase().indexOf('#psa') != -1) {
 	    io.of('/psa').emit('tweet', tweet);
 	    tweet.msgtype = 'psa';
@@ -71,15 +70,18 @@ exports.listen = function(server) {
 	} else if(userIDs.indexOf(tweet.user_id.toString()) != -1) {  		// If followed account tweets 
 	    console.log('followed');
 	    if(userIDs.indexOf(tweet.in_reply_to_user_id) == -1) { 	// To a non-followed account
-		var orig = twit.getStatus(tweet.in_reply_to_status_id);
-		console.log(orig);
-		if (patt.test(orig.data.text) == false) {			// And it's in response to a tweet
-		    io.of('/nolacares').emit('tweetpair', {'original': orig, 'response' : tweet});		// that wasn't to the followed account
-		    console.log('tweet pair');
-		} else {
-		    console.log('tweet');
-		    io.of('/nolatweets').emit('tweet', tweet);
-		}
+		twit.getStatus(tweet.in_reply_to_status_id, function(orig) {
+		    if(orig.statusCode != 404) {
+			console.log(orig);
+			if (patt.test(orig.data.text) == false) {			// And it's in response to a tweet
+			    io.of('/nolacares').emit('tweetpair', {'original': orig, 'response' : tweet});		// that wasn't to the followed account
+			    console.log('tweet pair');
+			} 
+		    } else {
+			console.log('tweet');
+			io.of('/nolatweets').emit('tweet', tweet);
+		    }
+		});
             }
 	} else {
 	    console.log('not followed');
@@ -105,7 +107,7 @@ exports.listen = function(server) {
 	console.log('connection');
     });
 
-    setInterval(function() {
+    /*setInterval(function() {
 	var tweet = {
 	    id: ++id,
 	    name: 'Charlie Chaplin',
@@ -117,7 +119,7 @@ exports.listen = function(server) {
 	};
 
 	io.of('/nolatweets').emit('tweet', tweet);
-    }, 10000); 
+    }, 10000); */
 
    eventSocket.on('connection', function(socket) {
 //	eventSocket.emit('events',events);

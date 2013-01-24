@@ -4,7 +4,7 @@
     <center><img style="margin-top: 150px;" src="/img/ajax-loader.gif" /></center>
   </div>
   <div ui-animate ng-repeat="tweet in tweets" class="tweet">
-    <img class="thumbnail" ng-src="{{ tweet.thumbnail }}" />
+    <img class="thumbnail" ng-src="{{ tweet.profile_image_url }}" />
     <span class="name">{{ tweet.name }}</span>
     <span class="handle">@{{ tweet.screen_name }}</span>
     <span class="time">10h</span>
