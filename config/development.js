@@ -15,4 +15,6 @@ exports.facebook = {
   callbackURL: 'http://127.0.0.1:3000/auth/facebook/callback'
 };
 
-
+exports.instagram = {
+  clientID: 'f2604eb9377e4b89844d8e743ee930fc',
+  clientSecret: 'b720d1c2fc9e4bf2854140d2453af1cd'}

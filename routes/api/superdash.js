@@ -2,7 +2,10 @@
     , events = require('../../models/events')
     , tweets = require('../../models/tweets')
   	, Twit = require('twit') 
-  	, Instagram = require('instagram-node-lib');
+  	, Instagram = require('instagram-node-lib')
+	, config = require('../../config/development')
+	, https = require('https')
+	, util = require('util)');
 
 
 var twit = new Twit({
@@ -14,9 +17,9 @@ var twit = new Twit({
 
 
 
-Instagram.set('client_id', '4d589b22ba1c4d9f9932ab2bd70a45f0');
-Instagram.set('client_secret', '46b82af8d9f94ac59cf089ec37e746ad');
-
+Instagram.set('client_id', config.instagram.clientID);
+Instagram.set('client_secret', config.instagram.clientSecret);
+Instagram.set('callback_url', config.baseURL + 'instagram/callback');
 
 
 
@@ -44,6 +47,38 @@ exports.events = function(req, res) {
 };
 
 
+exports.instagram.subscribe_callback = function(req,res) {
+  Instagram.subscriptions.handshake(req, res);
+};
+
+exports.instagram.callback = function(req, res) {
+	req.body.forEach(function(notification){
+		instagram_recent(notification);
+	});		
+};
+
+function instagram_recent(notification) {
+	Instagram.InstagramGeographies.recent({
+		geography_id: notification.object_id,
+		complete: instagram_complete, 
+		error: instagraon_error});
+}
+
+function instagram_complete(data, pagination) {
+	console.log("Instagram Data");
+	console.log("---------");
+	console.log("data: %s", util.inspect(data));
+	console.log("pagination: %s", util.inspect(pagination));
+};
+
+function instagraon_error(errorMessage, errorObject, caller) {
+	console.log("Instagram Error");
+	console.log("---------");
+	console.log("errorMessage: %s", errorMessage);
+	console.log("errorObject: %s", util.inspect(errorObject));
+	console.log("caller: %s", util.inspect(caller));
+
+};
 
 exports.instagram = function(req, res) {
 	var images = [];

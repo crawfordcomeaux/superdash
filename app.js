@@ -177,7 +177,8 @@ app.get('/superdash/heatmap', routes.api.superdash.heatmap);
 app.get('/superdash/psa', routes.api.superdash.psa);
 app.get('/superdash/changes', routes.api.superdash.changes);
 app.get('/superdash/accountfeed', routes.api.superdash.accountfeed);
-
+app.get('/superdash/instagram/callback', routes.api.superdash.instagram.subscribe_callback);
+app.post('/superdash/instagram/callback', routes.api.superdash.instagram.callback);
 
 // home
 app.get('/', routes.ui.home);
