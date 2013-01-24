@@ -5,7 +5,7 @@
   	, Instagram = require('instagram-node-lib')
 	, config = require('../../config/development')
 	, https = require('https')
-	, util = require('util)');
+	, util = require('util');
 
 
 var twit = new Twit({
@@ -47,11 +47,11 @@ exports.events = function(req, res) {
 };
 
 
-exports.instagram.subscribe_callback = function(req,res) {
+exports.instagram_subscribe_callback = function(req,res) {
   Instagram.subscriptions.handshake(req, res);
 };
 
-exports.instagram.callback = function(req, res) {
+exports.instagram_callback = function(req, res) {
 	req.body.forEach(function(notification){
 		instagram_recent(notification);
 	});		
