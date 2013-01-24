@@ -14,6 +14,9 @@ app.use(express.favicon());
 app.use(express.logger());
 app.use(express['static']('./public'));
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+
 app.get('/', routes.home);
 app.get('/left', routes.left);
 app.get('/right', routes.right);
