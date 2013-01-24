@@ -96,6 +96,13 @@
     box-shadow: 0 0 2px rgba(0,0,0,0.1);
 }
 
+.change {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .event p {
     margin: 0;
 }

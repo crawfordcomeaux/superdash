@@ -80,6 +80,16 @@ function EventsCtrl($scope, $http) {
     });
 }
 
+function ChangesCtrl($scope, $http) {
+    $scope.changes = [];
+
+    var socket = io.connect('/changes');
+    socket.on('changes', function (data) {
+	$scope.changes = data;
+	$scope.$apply();
+    });
+}
+
 angular.module('superdash.directives', []).
     directive('appVersion', ['version', function(version) {
 	return function(scope, el, attrs) {

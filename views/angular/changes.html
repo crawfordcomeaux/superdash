@@ -1,0 +1,9 @@
+<!-- this is a snippet of html intended for angular -->
+<div ng-controller="ChangesCtrl" id="angular-changes">
+  <div ng-show="changes.length == 0">
+    <center><img style="margin-top: 10px;" src="/img/ajax-loader.gif" /></center>
+  </div>
+  <div ui-animate ng-repeat="change in changes | limitTo:6 " class="change">
+    <p class="content">{{ change.text }}</p>
+  </div>
+</div>

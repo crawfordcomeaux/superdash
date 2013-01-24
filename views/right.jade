@@ -3,6 +3,7 @@ html
   head
     title= title
     != css('client')
+    != css('style')
     != css('twitter')
     != css('angular-ui.css')
     != js('client')
@@ -23,7 +24,7 @@ html
               h2.heading.widget-title #PSAs
               include angular/psa.html
           span.span6
-            .well.widget-container.upcoming-events
+            .well.widget-container.upcoming-events(style="height: 60%")
               .pull-right.widget-controls
                 i.icon.icon-chevron-up.maximize
                 i.icon.icon-remove.close
@@ -34,9 +35,7 @@ html
                 i.icon.icon-chevron-up.maximize
                 i.icon.icon-remove.close
               h2.heading.widget-title Recent Schedule Changes
-                .well.widget-content
-                  ul
-                    li.schedule-changes
+              include angular/changes.html
     != jadeTemplates()
     != js('client')    
     
