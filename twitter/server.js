@@ -23,10 +23,10 @@ exports.listen = function(server) {
 
     /*var log = [];*/
    
-    var events = MyEvent.findAll();
+//    var events = MyEvent.findAll();
     var tweet = new Tweet();
     var patt = new RegExp("^@" + tweet.screen_name);
-
+    var eventSocket = io.of('/events');
     stream();
     function stream() {
 //    	console.log(userIDs);
@@ -117,7 +117,7 @@ exports.listen = function(server) {
     }, 10000); */
 
    eventSocket.on('connection', function(socket) {
-	eventSocket.emit('events',events);
+//	eventSocket.emit('events',events);
 		//TODO: call events.findAll() and emit	
    });
 

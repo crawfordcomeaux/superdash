@@ -26,6 +26,9 @@ var eventsSchema = new Schema({
 	description: String,
 	changed: {type: Boolean, default: false}
 }, { collection: 'events' });
+/*
+
+TODO
 
 eventsSchema.methods.findAll = function(cb) {
         var eventDocs = [];
@@ -55,6 +58,6 @@ eventsSchema.methods.findAll = function(cb) {
                 }
 	return eventDocs;
 	});
-}
+}*/
 module.exports = mongoose.model('events', eventsSchema, 'events');
 

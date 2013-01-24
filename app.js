@@ -14,7 +14,6 @@ var config = require('./config')
   , mongoose = require('mongoose')
   , connectAssets = require('connect-assets')
   , lessMiddleware = require('less-middleware')
-  , User = require('./models/user')
   , Tweet = require('./models/tweet')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
@@ -25,7 +24,7 @@ var config = require('./config')
   , sessionStore = new MongoStore({ url: config.mongodb })
   , twitterStream = require('./twitter/server')
 ;
-
+/*
 // set up passport authentication
 if(config.enableGuestLogin) {
   passport.use('guest', new LocalStrategy(
@@ -80,7 +79,7 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
   });
 });
-
+*/
 // connect the database
 mongoose.connect(config.mongodb);
 
@@ -139,9 +138,10 @@ app.configure(function(){
   };
 */
 var sendJson = function(req, res) { res.json(res.jsonData); }
+/*
 app.get('/api/me', routes.api.me.show);
 app.get('/api/users/:id', routes.api.users.show);
-
+*/
 // this catch-all route will send JSON for every API route that falls through to this point in the chain
 // WARNING: Sometimes they don't fall through to this point in the chain! Example:
 //
@@ -189,6 +189,7 @@ app.get('/left', routes.ui.left);
 // right-hand dashboard
 app.get('/right', routes.ui.right);
 
+/*
 // currently logged-in user
 app.get('/me', routes.ui.me.show);
 app.put('/me', routes.ui.me.update);
@@ -216,7 +217,7 @@ app.get('/auth/success', routes.ui.auth.success);
 app.get('/auth/finish', routes.ui.auth.finish);
 app.get('/auth/failure', routes.ui.auth.failure)
 app.get('/auth/logout', routes.ui.auth.logout);
-
+*/
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

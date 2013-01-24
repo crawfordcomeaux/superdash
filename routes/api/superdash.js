@@ -1,6 +1,6 @@
   var mongoose = require('mongoose')
     , events = require('../../models/events')
-    , tweets = require('../../models/tweets')
+    , tweet = require('../../models/tweet')
   	, Twit = require('twit') 
   	, Instagram = require('instagram-node-lib')
 	, config = require('../../config/development')
