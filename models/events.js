@@ -26,6 +26,7 @@ var events = new mongoose.Schema({
   changed: { type: Boolean, default: false}
 }, { collection: 'events' });
 
+/*
 events.methods.findAll = function (cb) {
     var events = [];
     var count = events.count({}, function() {});
@@ -54,6 +55,7 @@ events.methods.findAll = function (cb) {
       return events;
     });
 };
+*/
 module.exports = mongoose.model('events', events, 'events');
 
 		    
