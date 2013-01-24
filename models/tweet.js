@@ -5,6 +5,7 @@ var mongoose = exports.mongoose = require('mongoose')
 var tweets = new Schema({
 
   status_id: { type: Number },
+  name: { type: String },
   in_reply_to_status_id: { type: Number },
   in_reply_to_user_id: { type: Number },
   created_at: { type: Date },

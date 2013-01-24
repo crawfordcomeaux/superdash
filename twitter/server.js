@@ -1,12 +1,13 @@
 var twitter = require('ntwitter'),
-    events = require('../models/events');
+    MyEvent = require('../models/events'),
+    Tweet = require('../models/tweet');
 
 exports.listen = function(server) {
     var io = require('socket.io').listen(server);
-
+    
     var userIDs = [
 	'1072729021',
-	'1104932480'
+	'1104932480','1367531','14523894','16819278','17831966','15600217','16494601','14164855','17685196','16181186','10202','807095','8453452','171317482','26642006','14293310','14079425'
     ];
 
     var twit = new twitter({
@@ -16,36 +17,39 @@ exports.listen = function(server) {
 	access_token_secret: '0e6I5gCIddg5I90dJwYVaYo9vnS1qV2UpQ0tWqTY'
     });
 
-    stream();
 
     var id = 0;
 //    console.log(userIDs);
 
     /*var log = [];*/
+   
+    var events = MyEvent.findAll();
+    var tweet = new Tweet();
+    var patt = new RegExp("^@" + tweet.screen_name);
+
+    stream();
     function stream() {
 //    	console.log(userIDs);
 	twit.stream('statuses/filter', {'follow': userIDs.join(',')}, function(stream) {
 	    stream.on('data', function(data) {
 		if(data.user) {
-		    var tweet = {
-			id: ++id,
+		    tweet = {
 			status_id: data.id,
 			name: data.user.name,
 			user_id: data.user.id,
 			screen_name: data.user.screen_name,
 			text: data.text,
-			thumbnail: data.user.profile_image_url,
-			timestamp: data.created_at,
-			replying_to_status_id: data.in_reply_to_status_id,
-			replying_to_user_id: data.in_reply_to_user_id,
-			replying_to_screen_name: data.in_reply_to_screen_name
+			profile_image_url: data.user.profile_image_url,
+			created_at: data.created_at,
+			in_reply_to_status_id: data.in_reply_to_status_id,
+			in_reply_to_user_id: data.in_reply_to_user_id,
+			in_reply_to_screen_name: data.in_reply_to_screen_name,
+			msgtype: 'general',
+			hidden: false
 		    };
-
-		    io.of('/nolatweets').emit('tweet', tweet);
+		    routeTweet(tweet);
+//		    io.of('/nolatweets').emit('tweet', tweet);
 		    
-		    if(tweet.text.toLowerCase().indexOf('#psa') != -1) {
-			io.of('/psa').emit('tweet', tweet);
-		    }
 		}
 	    });
 
@@ -59,13 +63,42 @@ exports.listen = function(server) {
 	});
     }
 
+    function routeTweet(tweet) {
+	
+      if(tweet.text.toLowerCase().indexOf('#psa') != -1) {
+	io.of('/psa').emit('tweet', tweet);
+	tweet.msgtype = 'psa';
+	tweet.save();
+      } else if(userIDs.indexOf(tweet.user_id) !== -1) {  		// If followed account tweets 
+	  if(userIDs.indexOf(tweet.in_reply_to_user_id) === -1) { 	// To a non-followed account
+	     var orig = twit.getStatus(tweet.in_reply_to_status_id);
+	     if (patt.test(orig.data.text) == false) {			// And it's in response to a tweet
+		io.of('/nolacares').emit('tweetpair', {'original': orig, 'response' : tweet});		// that wasn't to the followed account
+	     }
+          }
+      } else if(userIDs.indexOf(tweet.user_id) === -1) {		// Reverse the logic from 
+         if(userIDs.indexOf(tweet.in_reply_to_user_id) !== -1) {	// above to find people responding
+	     var orig = twit.getStatus(tweet.in_reply_to_status_id);    // to NOLA
+	     if (patt.test(orig.data.text) == false) {
+		io.of('/nolacares').emit('tweetpair', {'original': orig, 'response' : tweet});		
+	     }
+         }
+      } else {
+	io.of('/nolatweets').emit('tweet', tweet);
+      }
+      
+      
+    } 
+   
     io.of('/nolatweets').on('connection', function(socket) {
 	socket.on('tweet-hide', function(id) {
 	    socket.broadcast.emit('tweet-hide', id);
 	});
     });
 
-    io.sockets.on('connection', function (socket) {
+
+
+/*    io.sockets.on('connection', function (socket) {
 //	console.log('connection');
     });
 
@@ -81,9 +114,10 @@ exports.listen = function(server) {
 	};
 
 	io.of('/nolatweets').emit('tweet', tweet);
-    }, 10000);
+    }, 10000); */
 
-   io.of('/events').on('connection', function(socket) {
+   eventSocket.on('connection', function(socket) {
+	eventSocket.emit('events',events);
 		//TODO: call events.findAll() and emit	
    });
 
