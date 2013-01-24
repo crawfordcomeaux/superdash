@@ -13,15 +13,15 @@ module.exports = {
   'title': 'SuperDash - A Super Dashboard for a Super Bowl',
   'twitter_ids': [
     '1072729021',
-    '1104932480'
+    '1104900210'
   ],
 
   // APIs
   'twitter': {
-    'consumer_key': 'Ak2dsjQhvYtsiJ343Q',
-    'consumer_secret': 'iuh6rHrlfY7qDnhWMctDCuR4J67N1vOOVq3jL5YVQ',
-    'access_token': '16586793-rBtnLLXcQ8wt5gBjP99SFUrtKiSSRCg3uN3PdIpaR',
-    'access_token_secret': 'iMMjANsVy9DvrB53dd5LQvH4nzU05X0djo5mmuUw',
+    'consumer_key' : 'LYuiiOzuQHn1XuMqCCwBQ',
+    'consumer_secret' : '5wrXaat5dOh6jm7L5fRhgCXyul9wAA1jUPix4PhXA',
+    'access_token_key' : '1104640333-oPMy5KM8QChABRvSRPgdLEFwuBa46YWbigDtzJI',
+    'access_token_secret' : 'u2BguxHFCjv5rgSGm1o1rMkdlVR3uCzvptws2Oc1w0',
     'enabled': true
   },
   'instagram': {
