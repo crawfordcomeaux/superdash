@@ -1,2 +1,3 @@
 #!/bin/sh
-supervisor -w . -e js,jade,css,less,styl app.js
+
+./node_modules/.bin/supervisor -w . -e js,jade,css,less,styl app.js

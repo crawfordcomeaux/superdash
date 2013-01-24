@@ -23,8 +23,8 @@ app.get('/superdash/changes', routes.superdash.changes);
 app.get('/superdash/events', routes.superdash.events);
 app.get('/superdash/heatmap', routes.superdash.heatmap);
 app.get('/superdash/instagram', routes.superdash.instagram);
-app.get('/superdash/instagram/callback', routes.superdash.instagram.callback);
-app.post('/superdash/instagram/callback', routes.superdash.instagram.callback_post);
+app.get('/superdash/instagram/callback', routes.superdash.instagram_callback);
+app.post('/superdash/instagram/callback', routes.superdash.instagram_callback_post);
 app.get('/superdash/psa', routes.superdash.psa);
 app.all('/superdash/*', function (req, res) {
   res.json(res.jsonData);

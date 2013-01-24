@@ -14,9 +14,7 @@
     "socket.io-client": "*",
     "twitter-bootstrap": "*",
     "ntwitter": "*",
-    "instagram-node-lib": "0.1.x"
-  },
-  "devDependencies": {
-    "supervisor": "*"
+    "instagram-node-lib": "0.1.x",
+    "supervisor": "~0.5.0"
   }
 }
